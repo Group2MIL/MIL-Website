@@ -747,13 +747,29 @@ a {
 
     object-fit: cover;
 
-    object-position: center top;
+    /* Centers faces instead of forcing the crop toward the top */
+    object-position: center center;
 
     transition: transform 0.4s ease;
 }
 
 .contributor-card:hover .contributor-photo img {
     transform: scale(1.025);
+}
+
+
+/* =====================================================
+   INDIVIDUAL PHOTO POSITIONING
+===================================================== */
+
+/* Florie */
+.contributor-card:nth-child(1) .contributor-photo img {
+    object-position: center center;
+}
+
+/* Jyllana */
+.contributor-card:nth-child(2) .contributor-photo img {
+    object-position: center center;
 }
 
 
@@ -963,6 +979,11 @@ footer p {
 
     .contributor-photo {
         height: 430px;
+    }
+
+    /* Keep faces centered on mobile too */
+    .contributor-photo img {
+        object-position: center center;
     }
 
 }
