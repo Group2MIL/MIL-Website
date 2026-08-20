@@ -653,35 +653,6 @@ a {
 
 
 /* =====================================================
-   REFERENCES
-===================================================== */
-
-.references {
-    margin-top: 55px;
-
-    padding: 30px;
-
-    border-left: 4px solid #17221d;
-
-    background: #eeeae0;
-
-    border-radius: 5px;
-}
-
-.references h4 {
-    margin-top: 0;
-}
-
-.references p {
-    font-size: 15px;
-
-    margin-bottom: 10px;
-
-    line-height: 1.7;
-}
-
-
-/* =====================================================
    CONTRIBUTORS
 ===================================================== */
 
@@ -719,96 +690,51 @@ a {
 .contributor-photo {
     width: 100%;
 
-    height: 380px;
+    height: 360px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
 
     background: #eeeae0;
+}
 
-    padding: 30px;
+.contributor-photo-circle {
+    width: 270px;
+    height: 270px;
+
+    margin: 40px auto 10px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border: 7px solid #f4f1e9;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.16);
 }
 
 .contributor-photo img {
-    width: 300px;
-
-    height: 300px;
-
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 
     object-fit: cover;
 
-    object-position: center 20%;
+    object-position: center center;
 
-    border: 7px solid #fffdf7;
-
-    box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.15);
-
-    transition:
-        transform 0.4s ease,
-        box-shadow 0.4s ease;
+    transition: transform 0.4s ease;
 }
 
 .contributor-card:hover .contributor-photo img {
-    transform: scale(1.035);
-
-    box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
 }
 
 
 /* =====================================================
-   PLACEHOLDER FOR PEOPLE WITHOUT PHOTOS
-===================================================== */
-
-.contributor-placeholder {
-    height: 380px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #d9d4c7,
-            #aaa697
-        );
-}
-
-.contributor-placeholder span {
-    width: 150px;
-
-    height: 150px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.35);
-
-    font-family: "Playfair Display", serif;
-
-    font-size: 50px;
-
-    color: #17221d;
-}
-
-
-/* =====================================================
-   CONTRIBUTOR INFORMATION
+   CONTRIBUTOR INFO
 ===================================================== */
 
 .contributor-info {
@@ -874,6 +800,31 @@ footer p {
     margin-top: 20px;
 
     font-size: 13px;
+}
+
+
+/* =====================================================
+   REVEAL ANIMATION
+===================================================== */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(35px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+body.loaded {
+    opacity: 1;
 }
 
 
@@ -979,25 +930,11 @@ footer p {
         gap: 5px;
     }
 
+    .contributor-photo-circle {
+        width: 220px;
+        height: 220px;
 
-    /* MOBILE CIRCULAR PHOTOS */
-
-    .contributor-photo {
-        height: 330px;
-
-        padding: 20px;
-    }
-
-    .contributor-photo img {
-        width: 250px;
-
-        height: 250px;
-
-        border-width: 6px;
-    }
-
-    .contributor-placeholder {
-        height: 330px;
+        margin-top: 30px;
     }
 
 }
