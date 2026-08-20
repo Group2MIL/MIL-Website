@@ -52,6 +52,8 @@ a {
     backdrop-filter: blur(14px);
 
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    transition: box-shadow 0.3s ease;
 }
 
 .nav-logo {
@@ -76,7 +78,9 @@ a {
     font-size: 14px;
     font-weight: 600;
 
-    transition: 0.25s ease;
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
 }
 
 .navbar nav a:hover {
@@ -236,6 +240,8 @@ a {
     grid-template-columns: 0.7fr 1.3fr;
 
     gap: 70px;
+
+    scroll-margin-top: 80px;
 }
 
 .intro-section h2 {
@@ -261,6 +267,8 @@ a {
     background: #17221d;
 
     color: #f8f5ec;
+
+    scroll-margin-top: 80px;
 }
 
 .rationale-box {
@@ -284,6 +292,8 @@ a {
 
 .contents-section {
     background: #e9e4d8;
+
+    scroll-margin-top: 80px;
 }
 
 .topic-directory {
@@ -343,6 +353,9 @@ a {
     transform: scale(1.05);
 }
 
+
+/* EDUCATION IMAGE */
+
 .education-image {
     background-image:
         linear-gradient(
@@ -351,6 +364,9 @@ a {
         ),
         url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=90");
 }
+
+
+/* HEALTH IMAGE */
 
 .health-image {
     background-image:
@@ -361,6 +377,9 @@ a {
         url("https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=90");
 }
 
+
+/* ENVIRONMENT IMAGE */
+
 .environment-image {
     background-image:
         linear-gradient(
@@ -369,6 +388,7 @@ a {
         ),
         url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=90");
 }
+
 
 .topic-box-content {
     position: relative;
@@ -433,6 +453,8 @@ a {
     background-attachment: fixed;
 
     background-size: cover;
+
+    scroll-margin-top: 80px;
 }
 
 .category-background {
@@ -500,7 +522,7 @@ a {
 
 
 /* =====================================================
-   CATEGORY BACKGROUNDS
+   EDUCATION BACKGROUND
 ===================================================== */
 
 .education-section {
@@ -521,6 +543,11 @@ a {
         url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2200&q=90");
 }
 
+
+/* =====================================================
+   HEALTH BACKGROUND
+===================================================== */
+
 .health-section {
     background-image:
         linear-gradient(
@@ -538,6 +565,11 @@ a {
         ),
         url("https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=2200&q=90");
 }
+
+
+/* =====================================================
+   ENVIRONMENT BACKGROUND
+===================================================== */
 
 .environment-section {
     background-image:
@@ -653,11 +685,42 @@ a {
 
 
 /* =====================================================
+   REFERENCES
+===================================================== */
+
+.references {
+    margin-top: 55px;
+
+    padding: 30px;
+
+    border-left: 4px solid #17221d;
+
+    background: #eeeae0;
+
+    border-radius: 5px;
+}
+
+.references h4 {
+    margin-top: 0;
+}
+
+.references p {
+    font-size: 15px;
+
+    margin-bottom: 10px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
    CONTRIBUTORS
 ===================================================== */
 
 .contributors-section {
     background: #f4f1e9;
+
+    scroll-margin-top: 80px;
 }
 
 .contributors-grid {
@@ -680,6 +743,17 @@ a {
         0 15px 45px rgba(0, 0, 0, 0.09);
 
     border: 1px solid rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.contributor-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.13);
 }
 
 
@@ -688,33 +762,21 @@ a {
 ===================================================== */
 
 .contributor-photo {
-    width: 100%;
+    width: 250px;
+    height: 250px;
 
-    height: 360px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 38px auto 5px;
 
     overflow: hidden;
-
-    background: #eeeae0;
-}
-
-.contributor-photo-circle {
-    width: 270px;
-    height: 270px;
-
-    margin: 40px auto 10px;
 
     border-radius: 50%;
 
-    overflow: hidden;
+    background: #eeeae0;
 
-    border: 7px solid #f4f1e9;
+    border: 6px solid #f4f1e9;
 
     box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.16);
+        0 12px 35px rgba(0, 0, 0, 0.13);
 }
 
 .contributor-photo img {
@@ -725,7 +787,8 @@ a {
 
     object-position: center center;
 
-    transition: transform 0.4s ease;
+    transition:
+        transform 0.45s ease;
 }
 
 .contributor-card:hover .contributor-photo img {
@@ -734,7 +797,7 @@ a {
 
 
 /* =====================================================
-   CONTRIBUTOR INFO
+   CONTRIBUTOR INFORMATION
 ===================================================== */
 
 .contributor-info {
@@ -821,6 +884,17 @@ footer p {
     opacity: 1;
 
     transform: translateY(0);
+}
+
+
+/* =====================================================
+   PAGE LOADING
+===================================================== */
+
+body {
+    opacity: 0;
+
+    transition: opacity 0.5s ease;
 }
 
 body.loaded {
@@ -930,11 +1004,19 @@ body.loaded {
         gap: 5px;
     }
 
-    .contributor-photo-circle {
-        width: 220px;
-        height: 220px;
+    .contributor-photo {
+        width: 210px;
+        height: 210px;
 
         margin-top: 30px;
+    }
+
+    .contributor-info {
+        padding: 28px;
+    }
+
+    .contributor-info h3 {
+        font-size: 30px;
     }
 
 }
