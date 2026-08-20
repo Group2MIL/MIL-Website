@@ -1,72 +1,64 @@
-/* =====================================================
+/* =========================================================
    MOBILE MENU
-===================================================== */
+========================================================= */
 
 const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
 
 menuToggle.addEventListener("click", () => {
     mainNav.classList.toggle("active");
-
-    if (mainNav.classList.contains("active")) {
-        menuToggle.textContent = "✕";
-    } else {
-        menuToggle.textContent = "☰";
-    }
 });
 
 
-/* =====================================================
-   CLOSE MOBILE MENU AFTER CLICKING A LINK
-===================================================== */
+/* Close mobile menu after clicking a link */
 
 const navLinks = document.querySelectorAll("#mainNav a");
 
 navLinks.forEach(link => {
 
     link.addEventListener("click", () => {
-
         mainNav.classList.remove("active");
-
-        menuToggle.textContent = "☰";
-
     });
 
 });
 
 
-/* =====================================================
-   NAVBAR SCROLL EFFECT
-===================================================== */
+/* =========================================================
+   BACK TO TOP
+========================================================= */
 
-const navbar = document.querySelector(".navbar");
+const backToTop = document.getElementById("backToTop");
 
 window.addEventListener("scroll", () => {
 
-    if (window.scrollY > 50) {
-
-        navbar.style.boxShadow =
-            "0 8px 30px rgba(30, 45, 35, 0.08)";
-
+    if (window.scrollY > 600) {
+        backToTop.classList.add("show");
     } else {
-
-        navbar.style.boxShadow = "none";
-
+        backToTop.classList.remove("show");
     }
 
 });
 
+backToTop.addEventListener("click", () => {
 
-/* =====================================================
-   REVEAL ANIMATION
-===================================================== */
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
 
 const revealElements = document.querySelectorAll(
-    ".bio-card, .essay-link-card, .about-content, .rationale-box"
+    ".author-card, .topic-directory, .essay-paper, .rationale-card, .reference-group, .about-grid"
 );
 
 const revealObserver = new IntersectionObserver(
-    (entries) => {
+    (entries, observer) => {
 
         entries.forEach(entry => {
 
@@ -74,7 +66,7 @@ const revealObserver = new IntersectionObserver(
 
                 entry.target.classList.add("revealed");
 
-                revealObserver.unobserve(entry.target);
+                observer.unobserve(entry.target);
 
             }
 
@@ -82,7 +74,7 @@ const revealObserver = new IntersectionObserver(
 
     },
     {
-        threshold: 0.12
+        threshold: 0.08
     }
 );
 
@@ -96,62 +88,30 @@ revealElements.forEach(element => {
 });
 
 
-/* =====================================================
-   ADD REVEAL STYLES
-===================================================== */
+/* =========================================================
+   ACTIVE ESSAY LINK
+========================================================= */
 
-const revealStyle = document.createElement("style");
+const essaySections = document.querySelectorAll(".essay-section");
+const essayLinks = document.querySelectorAll(".essay-link");
 
-revealStyle.textContent = `
-
-    .reveal {
-        opacity: 0;
-        transform: translateY(25px);
-        transition:
-            opacity 0.7s ease,
-            transform 0.7s ease;
-    }
-
-    .reveal.revealed {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-`;
-
-document.head.appendChild(revealStyle);
-
-
-/* =====================================================
-   ACTIVE NAVIGATION
-===================================================== */
-
-const sections = document.querySelectorAll(
-    "section[id]"
-);
-
-const navigationLinks = document.querySelectorAll(
-    "#mainNav a"
-);
-
-const activeObserver = new IntersectionObserver(
-    (entries) => {
+const essayObserver = new IntersectionObserver(
+    entries => {
 
         entries.forEach(entry => {
 
             if (entry.isIntersecting) {
 
-                navigationLinks.forEach(link => {
-                    link.classList.remove("active-link");
+                essayLinks.forEach(link => {
+                    link.classList.remove("active");
                 });
 
-                const activeLink =
-                    document.querySelector(
-                        `#mainNav a[href="#${entry.target.id}"]`
-                    );
+                const activeLink = document.querySelector(
+                    `.essay-link[href="#${entry.target.id}"]`
+                );
 
                 if (activeLink) {
-                    activeLink.classList.add("active-link");
+                    activeLink.classList.add("active");
                 }
 
             }
@@ -160,40 +120,50 @@ const activeObserver = new IntersectionObserver(
 
     },
     {
-        rootMargin: "-35% 0px -60% 0px"
+        threshold: 0.35
     }
 );
 
 
-sections.forEach(section => {
-    activeObserver.observe(section);
+essaySections.forEach(section => {
+    essayObserver.observe(section);
 });
 
 
-/* =====================================================
-   SMOOTH ESSAY LINK TRANSITION
-===================================================== */
+/* =========================================================
+   SMOOTH ANCHOR OFFSET
+========================================================= */
 
-document.querySelectorAll(".essay-link-card").forEach(card => {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-    card.addEventListener("click", function () {
+    anchor.addEventListener("click", function(event) {
 
-        const targetID = this.getAttribute("href");
+        const targetId = this.getAttribute("href");
 
-        const target = document.querySelector(targetID);
-
-        if (target) {
-
-            setTimeout(() => {
-
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }, 50);
-
+        if (targetId === "#") {
+            return;
         }
+
+        const target = document.querySelector(targetId);
+
+        if (!target) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const navbarHeight = document.querySelector(".navbar").offsetHeight;
+
+        const targetPosition =
+            target.getBoundingClientRect().top +
+            window.scrollY -
+            navbarHeight -
+            15;
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth"
+        });
 
     });
 
