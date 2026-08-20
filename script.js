@@ -38,6 +38,10 @@ const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", function() {
 
+    if (!navbar) {
+        return;
+    }
+
     if (window.scrollY > 30) {
 
         navbar.style.boxShadow =
