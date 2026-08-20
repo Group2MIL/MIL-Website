@@ -343,9 +343,6 @@ a {
     transform: scale(1.05);
 }
 
-
-/* EDUCATION IMAGE */
-
 .education-image {
     background-image:
         linear-gradient(
@@ -354,9 +351,6 @@ a {
         ),
         url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=90");
 }
-
-
-/* HEALTH IMAGE */
 
 .health-image {
     background-image:
@@ -367,9 +361,6 @@ a {
         url("https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=90");
 }
 
-
-/* ENVIRONMENT IMAGE */
-
 .environment-image {
     background-image:
         linear-gradient(
@@ -378,7 +369,6 @@ a {
         ),
         url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=90");
 }
-
 
 .topic-box-content {
     position: relative;
@@ -510,7 +500,7 @@ a {
 
 
 /* =====================================================
-   EDUCATION BACKGROUND
+   CATEGORY BACKGROUNDS
 ===================================================== */
 
 .education-section {
@@ -531,11 +521,6 @@ a {
         url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2200&q=90");
 }
 
-
-/* =====================================================
-   HEALTH BACKGROUND
-===================================================== */
-
 .health-section {
     background-image:
         linear-gradient(
@@ -553,11 +538,6 @@ a {
         ),
         url("https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=2200&q=90");
 }
-
-
-/* =====================================================
-   ENVIRONMENT BACKGROUND
-===================================================== */
 
 .environment-section {
     background-image:
@@ -731,55 +711,69 @@ a {
     border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+
+/* =====================================================
+   CIRCULAR CONTRIBUTOR PHOTOS
+===================================================== */
+
 .contributor-photo {
     width: 100%;
 
-    height: 520px;
+    height: 380px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     overflow: hidden;
 
     background: #eeeae0;
+
+    padding: 30px;
 }
 
 .contributor-photo img {
-    width: 100%;
-    height: 100%;
+    width: 300px;
+
+    height: 300px;
+
+    border-radius: 50%;
 
     object-fit: cover;
 
-    /* Centers faces instead of forcing the crop toward the top */
-    object-position: center center;
+    object-position: center 20%;
 
-    transition: transform 0.4s ease;
+    border: 7px solid #fffdf7;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
 .contributor-card:hover .contributor-photo img {
-    transform: scale(1.025);
+    transform: scale(1.035);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.2);
 }
 
 
 /* =====================================================
-   INDIVIDUAL PHOTO POSITIONING
+   PLACEHOLDER FOR PEOPLE WITHOUT PHOTOS
 ===================================================== */
 
-/* Florie */
-.contributor-card:nth-child(1) .contributor-photo img {
-    object-position: center center;
-}
-
-/* Jyllana */
-.contributor-card:nth-child(2) .contributor-photo img {
-    object-position: center center;
-}
-
-
-/* PLACEHOLDER FOR PEOPLE WITHOUT PHOTOS */
-
 .contributor-placeholder {
-    height: 300px;
+    height: 380px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     background:
@@ -791,11 +785,14 @@ a {
 }
 
 .contributor-placeholder span {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+
+    height: 150px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     border-radius: 50%;
@@ -804,10 +801,15 @@ a {
 
     font-family: "Playfair Display", serif;
 
-    font-size: 45px;
+    font-size: 50px;
 
     color: #17221d;
 }
+
+
+/* =====================================================
+   CONTRIBUTOR INFORMATION
+===================================================== */
 
 .contributor-info {
     padding: 35px;
@@ -977,13 +979,25 @@ footer p {
         gap: 5px;
     }
 
+
+    /* MOBILE CIRCULAR PHOTOS */
+
     .contributor-photo {
-        height: 430px;
+        height: 330px;
+
+        padding: 20px;
     }
 
-    /* Keep faces centered on mobile too */
     .contributor-photo img {
-        object-position: center center;
+        width: 250px;
+
+        height: 250px;
+
+        border-width: 6px;
+    }
+
+    .contributor-placeholder {
+        height: 330px;
     }
 
 }
