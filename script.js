@@ -1,172 +1,420 @@
-/* =====================================================
-   MOBILE NAVIGATION
-===================================================== */
+/* =========================================================
+   THE INITIATIVE FOR HUMAN AND ENVIRONMENTAL WELLBEING
+   MAIN JAVASCRIPT
+   ========================================================= */
 
-const menuBtn = document.querySelector(".menu-btn");
-const navLinks = document.querySelector(".nav-links");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (menuBtn && navLinks) {
+    /* =====================================================
+       NAVBAR
+       ===================================================== */
 
-    menuBtn.addEventListener("click", function () {
+    const navbar = document.querySelector(".navbar");
 
-        navLinks.classList.toggle("open");
+    function updateNavbar() {
+        if (!navbar) return;
+
+        if (window.scrollY > 40) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    }
+
+    window.addEventListener("scroll", updateNavbar);
+    updateNavbar();
+
+
+    /* =====================================================
+       MOBILE MENU
+       ===================================================== */
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (menuToggle && navLinks) {
+
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("open");
+
+            const isOpen = navLinks.classList.contains("open");
+
+            menuToggle.setAttribute("aria-expanded", isOpen);
+
+            const spans = menuToggle.querySelectorAll("span");
+
+            if (isOpen) {
+                if (spans.length >= 3) {
+                    spans[0].style.transform = "translateY(7px) rotate(45deg)";
+                    spans[1].style.opacity = "0";
+                    spans[2].style.transform = "translateY(-7px) rotate(-45deg)";
+                }
+            } else {
+                spans.forEach(span => {
+                    span.style.transform = "";
+                    span.style.opacity = "";
+                });
+            }
+        });
+
+
+        /* Close mobile menu when a link is clicked */
+
+        navLinks.querySelectorAll("a").forEach(link => {
+
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+
+                menuToggle.setAttribute("aria-expanded", "false");
+
+                navLinks.querySelectorAll("span").forEach(span => {
+                    span.style.transform = "";
+                    span.style.opacity = "";
+                });
+            });
+
+        });
+
+    }
+
+
+    /* =====================================================
+       SMOOTH SCROLLING
+       ===================================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", function (event) {
+
+            const targetId = this.getAttribute("href");
+
+            if (!targetId || targetId === "#") {
+                return;
+            }
+
+            const target = document.querySelector(targetId);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const navbarHeight = navbar
+                ? navbar.offsetHeight
+                : 0;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                navbarHeight -
+                10;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
+
+        });
 
     });
 
-}
 
+    /* =====================================================
+       SCROLL REVEAL ANIMATIONS
+       ===================================================== */
 
-/* =====================================================
-   CLOSE MOBILE NAVIGATION
-===================================================== */
+    const revealElements = document.querySelectorAll(
+        ".topic-card, .bio-card, .about-text, .about-image, .article-content, .article-header, .section-heading, .references"
+    );
 
-document.querySelectorAll(".nav-links a").forEach(function (link) {
-
-    link.addEventListener("click", function () {
-
-        if (navLinks) {
-            navLinks.classList.remove("open");
-        }
-
+    revealElements.forEach(element => {
+        element.classList.add("reveal");
     });
 
-});
+
+    if ("IntersectionObserver" in window) {
+
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("visible");
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
+    } else {
+
+        revealElements.forEach(element => {
+            element.classList.add("visible");
+        });
+
+    }
 
 
-/* =====================================================
-   SMOOTH SCROLL
-===================================================== */
+    /* =====================================================
+       ACTIVE NAVIGATION LINK
+       ===================================================== */
 
-document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    const sections = document.querySelectorAll("section[id]");
+    const navigationLinks = document.querySelectorAll(
+        ".nav-links a[href^='#']"
+    );
 
-    link.addEventListener("click", function (event) {
+    function updateActiveNavigation() {
 
-        const targetId = this.getAttribute("href");
+        let currentSection = "";
 
-        if (!targetId || targetId === "#") {
-            return;
-        }
+        sections.forEach(section => {
+
+            const sectionTop =
+                section.offsetTop - 160;
+
+            const sectionHeight =
+                section.offsetHeight;
+
+            if (
+                window.scrollY >= sectionTop &&
+                window.scrollY < sectionTop + sectionHeight
+            ) {
+                currentSection = section.getAttribute("id");
+            }
+
+        });
+
+        navigationLinks.forEach(link => {
+
+            link.classList.remove("active");
+
+            const href = link.getAttribute("href");
+
+            if (href === `#${currentSection}`) {
+                link.classList.add("active");
+            }
+
+        });
+
+    }
+
+    window.addEventListener("scroll", updateActiveNavigation);
+    updateActiveNavigation();
+
+
+    /* =====================================================
+       TABLE OF CONTENTS ACTIVE STATE
+       ===================================================== */
+
+    const tocLinks = document.querySelectorAll(
+        ".toc-links a[href^='#']"
+    );
+
+    const tocSections = [];
+
+    tocLinks.forEach(link => {
+
+        const targetId = link.getAttribute("href");
 
         const target = document.querySelector(targetId);
 
         if (target) {
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
+            tocSections.push({
+                element: target,
+                link: link
             });
+        }
+
+    });
+
+    function updateTOC() {
+
+        let current = null;
+
+        tocSections.forEach(item => {
+
+            const top =
+                item.element.getBoundingClientRect().top;
+
+            if (top <= 180) {
+                current = item;
+            }
+
+        });
+
+        tocLinks.forEach(link => {
+            link.classList.remove("active");
+        });
+
+        if (current) {
+            current.link.classList.add("active");
+        }
+
+    }
+
+    if (tocSections.length) {
+        window.addEventListener("scroll", updateTOC);
+        updateTOC();
+    }
+
+
+    /* =====================================================
+       BACK TO TOP BUTTON
+       ===================================================== */
+
+    let backToTop = document.querySelector(".back-to-top");
+
+    if (!backToTop) {
+
+        backToTop = document.createElement("button");
+
+        backToTop.className = "back-to-top";
+        backToTop.type = "button";
+        backToTop.setAttribute(
+            "aria-label",
+            "Back to top"
+        );
+
+        backToTop.innerHTML = "↑";
+
+        document.body.appendChild(backToTop);
+
+    }
+
+
+    function updateBackToTop() {
+
+        if (window.scrollY > 500) {
+            backToTop.classList.add("show");
+        } else {
+            backToTop.classList.remove("show");
+        }
+
+    }
+
+    window.addEventListener("scroll", updateBackToTop);
+
+    backToTop.addEventListener("click", () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+
+    /* =====================================================
+       EXTERNAL LINKS
+       ===================================================== */
+
+    document.querySelectorAll(
+        'a[href^="http://"], a[href^="https://"]'
+    ).forEach(link => {
+
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
+
+    });
+
+
+    /* =====================================================
+       IMAGE FALLBACK
+       ===================================================== */
+
+    document.querySelectorAll("img").forEach(image => {
+
+        image.addEventListener("error", () => {
+
+            image.style.display = "none";
+
+            const parent = image.parentElement;
+
+            if (parent) {
+                parent.classList.add("image-missing");
+            }
+
+        });
+
+    });
+
+
+    /* =====================================================
+       CURRENT YEAR
+       ===================================================== */
+
+    document.querySelectorAll(".current-year").forEach(element => {
+        element.textContent = new Date().getFullYear();
+    });
+
+
+    /* =====================================================
+       KEYBOARD ACCESSIBILITY FOR MOBILE MENU
+       ===================================================== */
+
+    document.addEventListener("keydown", event => {
+
+        if (
+            event.key === "Escape" &&
+            navLinks &&
+            navLinks.classList.contains("open")
+        ) {
+
+            navLinks.classList.remove("open");
+
+            if (menuToggle) {
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle
+                    .querySelectorAll("span")
+                    .forEach(span => {
+                        span.style.transform = "";
+                        span.style.opacity = "";
+                    });
+            }
 
         }
 
     });
 
-});
+
+    /* =====================================================
+       LAZY LOAD IMAGES
+       ===================================================== */
+
+    document.querySelectorAll("img").forEach(image => {
+
+        if (!image.hasAttribute("loading")) {
+            image.setAttribute("loading", "lazy");
+        }
+
+    });
 
 
-/* =====================================================
-   ACTIVE NAVIGATION
-===================================================== */
+    /* =====================================================
+       CONSOLE MESSAGE
+       ===================================================== */
 
-const sections = document.querySelectorAll(
-    "#education, #health, #environment, #contributors, #references"
-);
-
-const links = document.querySelectorAll(".nav-links a");
-
-const observer = new IntersectionObserver(
-
-    function (entries) {
-
-        entries.forEach(function (entry) {
-
-            if (!entry.isIntersecting) {
-                return;
-            }
-
-            links.forEach(function (link) {
-
-                link.classList.remove("active");
-
-            });
-
-            const activeLink = document.querySelector(
-                '.nav-links a[href="#' +
-                entry.target.id +
-                '"]'
-            );
-
-            if (activeLink) {
-
-                activeLink.classList.add("active");
-
-            }
-
-        });
-
-    },
-
-    {
-        rootMargin: "-35% 0px -55% 0px"
-    }
-
-);
-
-sections.forEach(function (section) {
-
-    observer.observe(section);
-
-});
-
-
-/* =====================================================
-   ESSAY REVEAL
-===================================================== */
-
-const essayElements = document.querySelectorAll(
-    ".individual-essay, .essay-link, .topic-card, .contributor-card"
-);
-
-const revealObserver = new IntersectionObserver(
-
-    function (entries) {
-
-        entries.forEach(function (entry) {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("show");
-
-                revealObserver.unobserve(entry.target);
-
-            }
-
-        });
-
-    },
-
-    {
-        threshold: 0.08
-    }
-
-);
-
-essayElements.forEach(function (element) {
-
-    element.classList.add("reveal");
-
-    revealObserver.observe(element);
-
-});
-
-
-/* =====================================================
-   PAGE LOAD
-===================================================== */
-
-window.addEventListener("load", function () {
-
-    document.body.classList.add("loaded");
+    console.log(
+        "The Initiative for Human and Environmental Wellbeing website loaded successfully."
+    );
 
 });
