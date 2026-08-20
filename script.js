@@ -5,7 +5,6 @@
 const menuBtn = document.querySelector(".menu-btn");
 const navLinks = document.querySelector(".nav-links");
 
-
 if (menuBtn && navLinks) {
 
     menuBtn.addEventListener("click", function () {
@@ -76,7 +75,6 @@ const sections = document.querySelectorAll(
 
 const links = document.querySelectorAll(".nav-links a");
 
-
 const observer = new IntersectionObserver(
 
     function (entries) {
@@ -93,13 +91,11 @@ const observer = new IntersectionObserver(
 
             });
 
-
             const activeLink = document.querySelector(
                 '.nav-links a[href="#' +
                 entry.target.id +
                 '"]'
             );
-
 
             if (activeLink) {
 
@@ -117,7 +113,6 @@ const observer = new IntersectionObserver(
 
 );
 
-
 sections.forEach(function (section) {
 
     observer.observe(section);
@@ -132,7 +127,6 @@ sections.forEach(function (section) {
 const essayElements = document.querySelectorAll(
     ".individual-essay, .essay-link, .topic-card, .contributor-card"
 );
-
 
 const revealObserver = new IntersectionObserver(
 
@@ -157,7 +151,6 @@ const revealObserver = new IntersectionObserver(
     }
 
 );
-
 
 essayElements.forEach(function (element) {
 
