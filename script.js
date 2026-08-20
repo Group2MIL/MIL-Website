@@ -1,320 +1,146 @@
 /* =====================================================
-   THE INITIATIVE
-   SCRIPT.JS
+   SMOOTH SCROLL
 ===================================================== */
 
+document.querySelectorAll('a[href^="#"]').forEach(function(link) {
 
-/* =====================================================
-   SMOOTH SCROLLING
-===================================================== */
+    link.addEventListener("click", function(event) {
 
-document
-    .querySelectorAll('a[href^="#"]')
-    .forEach(function (link) {
+        const targetId = this.getAttribute("href");
 
-        link.addEventListener(
-            "click",
-            function (event) {
+        if (targetId === "#") {
+            return;
+        }
 
-                const targetID =
-                    this.getAttribute("href");
+        const target = document.querySelector(targetId);
 
-                const target =
-                    document.querySelector(targetID);
+        if (target) {
 
-                if (!target) {
-                    return;
-                }
+            event.preventDefault();
 
-                event.preventDefault();
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }
-        );
+        }
 
     });
 
+});
 
 
 /* =====================================================
    NAVBAR SHADOW
 ===================================================== */
 
-const navbar =
-    document.querySelector(".navbar");
+const navbar = document.querySelector(".navbar");
 
+window.addEventListener("scroll", function() {
 
-window.addEventListener(
-    "scroll",
-    function () {
+    if (window.scrollY > 30) {
 
-        if (window.scrollY > 50) {
+        navbar.style.boxShadow =
+            "0 8px 30px rgba(0,0,0,0.08)";
 
-            navbar.style.boxShadow =
-                "0 8px 30px rgba(0,0,0,0.10)";
+    } else {
 
-        } else {
-
-            navbar.style.boxShadow =
-                "none";
-
-        }
+        navbar.style.boxShadow = "none";
 
     }
-);
 
+});
 
 
 /* =====================================================
-   TABLE OF CONTENTS LINK EFFECT
+   REVEAL ANIMATION
 ===================================================== */
 
-const contentsLinks =
-    document.querySelectorAll(
-        ".contents-link"
-    );
+const revealElements = document.querySelectorAll(
+    ".essay-card, .topic-box, .contributor-card, .category-heading"
+);
 
+const revealObserver = new IntersectionObserver(
+    function(entries) {
 
-contentsLinks.forEach(
-    function (link) {
+        entries.forEach(function(entry) {
 
-        link.addEventListener(
-            "click",
-            function () {
+            if (entry.isIntersecting) {
 
-                const targetID =
-                    this.getAttribute("href");
+                entry.target.classList.add("visible");
 
-                const target =
-                    document.querySelector(targetID);
-
-                if (!target) {
-                    return;
-                }
-
-                target.classList.add(
-                    "essay-focus"
-                );
-
-
-                setTimeout(
-                    function () {
-
-                        target.classList.remove(
-                            "essay-focus"
-                        );
-
-                    },
-                    1800
-                );
+                revealObserver.unobserve(entry.target);
 
             }
-        );
 
+        });
+
+    },
+    {
+        threshold: 0.08
     }
 );
 
+
+revealElements.forEach(function(element) {
+
+    element.classList.add("reveal");
+
+    revealObserver.observe(element);
+
+});
 
 
 /* =====================================================
-   ESSAY FOCUS ANIMATION
+   ACTIVE NAVIGATION
 ===================================================== */
 
-const focusStyle =
-    document.createElement("style");
-
-
-focusStyle.innerHTML = `
-
-    .essay-focus {
-        animation:
-            essayFocus 1.8s ease;
-    }
-
-    @keyframes essayFocus {
-
-        0% {
-            transform: translateY(0);
-            box-shadow:
-                0 30px 80px
-                rgba(0,0,0,0.30);
-        }
-
-        30% {
-            transform: translateY(-8px);
-            box-shadow:
-                0 35px 90px
-                rgba(0,0,0,0.45);
-        }
-
-        100% {
-            transform: translateY(0);
-            box-shadow:
-                0 30px 80px
-                rgba(0,0,0,0.30);
-        }
-
-    }
-
-`;
-
-document.head.appendChild(
-    focusStyle
+const sections = document.querySelectorAll(
+    "#about, #rationale, #contents, #education, #health, #environment, #contributors"
 );
 
+const navLinks = document.querySelectorAll(".navbar nav a");
+
+window.addEventListener("scroll", function() {
+
+    let currentSection = "";
+
+    sections.forEach(function(section) {
+
+        const sectionTop = section.offsetTop - 150;
+
+        if (window.scrollY >= sectionTop) {
+
+            currentSection = section.getAttribute("id");
+
+        }
+
+    });
+
+
+    navLinks.forEach(function(link) {
+
+        link.style.opacity = "0.6";
+
+        if (
+            link.getAttribute("href") === "#" + currentSection
+        ) {
+
+            link.style.opacity = "1";
+
+        }
+
+    });
+
+});
 
 
 /* =====================================================
-   FADE-IN CARDS
+   PAGE LOAD
 ===================================================== */
 
-const cards =
-    document.querySelectorAll(
-        ".about-card, .takeaway-card, .contributor-card, .contents-category"
-    );
+window.addEventListener("load", function() {
 
+    document.body.classList.add("loaded");
 
-const observer =
-    new IntersectionObserver(
-        function (entries) {
-
-            entries.forEach(
-                function (entry) {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        entry.target.style.opacity =
-                            "1";
-
-                        entry.target.style.transform =
-                            "translateY(0)";
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                }
-            );
-
-        },
-        {
-            threshold: 0.12
-        }
-    );
-
-
-cards.forEach(
-    function (card) {
-
-        card.style.opacity = "0";
-
-        card.style.transform =
-            "translateY(25px)";
-
-        card.style.transition =
-            "opacity 0.7s ease, transform 0.7s ease";
-
-        observer.observe(card);
-
-    }
-);
-
-
-
-/* =====================================================
-   CURRENT SECTION TRACKING
-===================================================== */
-
-const sections =
-    document.querySelectorAll(
-        "section[id]"
-    );
-
-
-const navLinks =
-    document.querySelectorAll(
-        ".navbar nav a"
-    );
-
-
-window.addEventListener(
-    "scroll",
-    function () {
-
-        let current = "";
-
-
-        sections.forEach(
-            function (section) {
-
-                const sectionTop =
-                    section.offsetTop - 160;
-
-                const sectionBottom =
-                    sectionTop +
-                    section.offsetHeight;
-
-
-                if (
-                    window.scrollY >= sectionTop &&
-                    window.scrollY < sectionBottom
-                ) {
-
-                    current =
-                        section.getAttribute("id");
-
-                }
-
-            }
-        );
-
-
-        navLinks.forEach(
-            function (link) {
-
-                link.classList.remove(
-                    "active"
-                );
-
-
-                if (
-                    link.getAttribute("href") ===
-                    "#" + current
-                ) {
-
-                    link.classList.add(
-                        "active"
-                    );
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-
-/* =====================================================
-   PAGE LOADED
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        console.log(
-            "The Initiative for Human and Environmental Wellbeing is ready."
-        );
-
-    }
-);
+});
