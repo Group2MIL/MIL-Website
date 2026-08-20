@@ -105,7 +105,8 @@ const sections = document.querySelectorAll(
 
 const navLinks = document.querySelectorAll(".navbar nav a");
 
-window.addEventListener("scroll", function() {
+
+function updateActiveNavigation() {
 
     let currentSection = "";
 
@@ -136,7 +137,13 @@ window.addEventListener("scroll", function() {
 
     });
 
-});
+}
+
+
+window.addEventListener(
+    "scroll",
+    updateActiveNavigation
+);
 
 
 /* =====================================================
@@ -146,5 +153,7 @@ window.addEventListener("scroll", function() {
 window.addEventListener("load", function() {
 
     document.body.classList.add("loaded");
+
+    updateActiveNavigation();
 
 });
