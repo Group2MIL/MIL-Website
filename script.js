@@ -1,14 +1,50 @@
 /* =====================================================
+   MOBILE NAVIGATION
+===================================================== */
+
+const menuBtn = document.querySelector(".menu-btn");
+const navLinks = document.querySelector(".nav-links");
+
+
+if (menuBtn && navLinks) {
+
+    menuBtn.addEventListener("click", function () {
+
+        navLinks.classList.toggle("open");
+
+    });
+
+}
+
+
+/* =====================================================
+   CLOSE MOBILE NAVIGATION
+===================================================== */
+
+document.querySelectorAll(".nav-links a").forEach(function (link) {
+
+    link.addEventListener("click", function () {
+
+        if (navLinks) {
+            navLinks.classList.remove("open");
+        }
+
+    });
+
+});
+
+
+/* =====================================================
    SMOOTH SCROLL
 ===================================================== */
 
-document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+document.querySelectorAll('a[href^="#"]').forEach(function (link) {
 
-    link.addEventListener("click", function(event) {
+    link.addEventListener("click", function (event) {
 
         const targetId = this.getAttribute("href");
 
-        if (targetId === "#") {
+        if (!targetId || targetId === "#") {
             return;
         }
 
@@ -31,47 +67,82 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
 
 
 /* =====================================================
-   NAVBAR SHADOW
+   ACTIVE NAVIGATION
 ===================================================== */
 
-const navbar = document.querySelector(".navbar");
+const sections = document.querySelectorAll(
+    "#education, #health, #environment, #contributors, #references"
+);
 
-window.addEventListener("scroll", function() {
+const links = document.querySelectorAll(".nav-links a");
 
-    if (!navbar) {
-        return;
+
+const observer = new IntersectionObserver(
+
+    function (entries) {
+
+        entries.forEach(function (entry) {
+
+            if (!entry.isIntersecting) {
+                return;
+            }
+
+            links.forEach(function (link) {
+
+                link.classList.remove("active");
+
+            });
+
+
+            const activeLink = document.querySelector(
+                '.nav-links a[href="#' +
+                entry.target.id +
+                '"]'
+            );
+
+
+            if (activeLink) {
+
+                activeLink.classList.add("active");
+
+            }
+
+        });
+
+    },
+
+    {
+        rootMargin: "-35% 0px -55% 0px"
     }
 
-    if (window.scrollY > 30) {
+);
 
-        navbar.style.boxShadow =
-            "0 8px 30px rgba(0,0,0,0.08)";
 
-    } else {
+sections.forEach(function (section) {
 
-        navbar.style.boxShadow = "none";
-
-    }
+    observer.observe(section);
 
 });
 
 
 /* =====================================================
-   REVEAL ANIMATION
+   ESSAY REVEAL
 ===================================================== */
 
-const revealElements = document.querySelectorAll(
-    ".essay-card, .topic-box, .contributor-card, .category-heading"
+const essayElements = document.querySelectorAll(
+    ".individual-essay, .essay-link, .topic-card, .contributor-card"
 );
 
-const revealObserver = new IntersectionObserver(
-    function(entries) {
 
-        entries.forEach(function(entry) {
+const revealObserver = new IntersectionObserver(
+
+    function (entries) {
+
+        entries.forEach(function (entry) {
 
             if (entry.isIntersecting) {
 
-                entry.target.classList.add("visible");
+                entry.target.classList.add("show");
 
                 revealObserver.unobserve(entry.target);
 
@@ -80,13 +151,15 @@ const revealObserver = new IntersectionObserver(
         });
 
     },
+
     {
         threshold: 0.08
     }
+
 );
 
 
-revealElements.forEach(function(element) {
+essayElements.forEach(function (element) {
 
     element.classList.add("reveal");
 
@@ -96,64 +169,11 @@ revealElements.forEach(function(element) {
 
 
 /* =====================================================
-   ACTIVE NAVIGATION
-===================================================== */
-
-const sections = document.querySelectorAll(
-    "#about, #rationale, #contents, #education, #health, #environment, #contributors"
-);
-
-const navLinks = document.querySelectorAll(".navbar nav a");
-
-
-function updateActiveNavigation() {
-
-    let currentSection = "";
-
-    sections.forEach(function(section) {
-
-        const sectionTop = section.offsetTop - 150;
-
-        if (window.scrollY >= sectionTop) {
-
-            currentSection = section.getAttribute("id");
-
-        }
-
-    });
-
-
-    navLinks.forEach(function(link) {
-
-        link.style.opacity = "0.6";
-
-        if (
-            link.getAttribute("href") === "#" + currentSection
-        ) {
-
-            link.style.opacity = "1";
-
-        }
-
-    });
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    updateActiveNavigation
-);
-
-
-/* =====================================================
    PAGE LOAD
 ===================================================== */
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
 
     document.body.classList.add("loaded");
-
-    updateActiveNavigation();
 
 });
