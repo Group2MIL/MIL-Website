@@ -1,1716 +1,1421 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>The Initiative for Human and Environmental Wellbeing</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --primary: #173f35;
-            --secondary: #2f6b57;
-            --accent: #c8a96b;
-            --cream: #f7f4ec;
-            --light: #ffffff;
-            --dark: #17211d;
-            --muted: #66736d;
-            --border: #dfe5df;
-            --shadow: 0 15px 40px rgba(23, 63, 53, 0.08);
-        }
-
-        body {
-            font-family: Georgia, "Times New Roman", serif;
-            background: var(--cream);
-            color: var(--dark);
-            line-height: 1.8;
-        }
-
-        /* =========================
-           NAVIGATION
-        ========================= */
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255,255,255,0.96);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-        }
-
-        .navbar {
-            max-width: 1250px;
-            margin: auto;
-            min-height: 78px;
-            padding: 0 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.15rem;
-            letter-spacing: .04em;
-            line-height: 1.2;
-        }
-
-        .logo span {
-            display: block;
-            font-size: .65rem;
-            font-family: Arial, sans-serif;
-            letter-spacing: .18em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-top: 5px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-family: Arial, sans-serif;
-            font-size: .86rem;
-            font-weight: 600;
-            transition: .25s;
-        }
-
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-
-        .menu-btn {
-            display: none;
-            border: none;
-            background: none;
-            font-size: 1.7rem;
-            color: var(--primary);
-            cursor: pointer;
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            min-height: 650px;
-            display: flex;
-            align-items: center;
-            background:
-                linear-gradient(rgba(15, 50, 40, .78), rgba(15, 50, 40, .78)),
-                radial-gradient(circle at center, #497b67, #173f35);
-            color: white;
-            text-align: center;
-            padding: 90px 25px;
-        }
-
-        .hero-content {
-            max-width: 950px;
-            margin: auto;
-        }
-
-        .eyebrow {
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: .3em;
-            font-size: .72rem;
-            color: #e2c98f;
-            margin-bottom: 22px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.8rem, 7vw, 6.2rem);
-            line-height: 1;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
-
-        .hero p {
-            max-width: 760px;
-            margin: auto;
-            font-size: 1.15rem;
-            color: rgba(255,255,255,.88);
-        }
-
-        .hero-button {
-            display: inline-block;
-            margin-top: 35px;
-            padding: 13px 28px;
-            border: 1px solid rgba(255,255,255,.5);
-            color: white;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            font-size: .85rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            transition: .3s;
-        }
-
-        .hero-button:hover {
-            background: white;
-            color: var(--primary);
-        }
-
-        /* =========================
-           GENERAL
-        ========================= */
-
-        section {
-            padding: 95px 25px;
-        }
-
-        .container {
-            max-width: 1150px;
-            margin: auto;
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-heading small {
-            display: block;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: .25em;
-            color: var(--accent);
-            font-size: .72rem;
-            margin-bottom: 10px;
-        }
-
-        .section-heading h2 {
-            color: var(--primary);
-            font-size: clamp(2.1rem, 4vw, 3.5rem);
-            font-weight: 500;
-            line-height: 1.15;
-        }
-
-        .section-heading p {
-            max-width: 700px;
-            margin: 18px auto 0;
-            color: var(--muted);
-        }
-
-        /* =========================
-           TOPIC CARDS
-        ========================= */
-
-        .topics {
-            background: white;
-        }
-
-        .topic-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .topic-card {
-            background: var(--cream);
-            padding: 40px 30px;
-            border: 1px solid var(--border);
-            transition: .3s;
-        }
-
-        .topic-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow);
-        }
-
-        .topic-number {
-            font-family: Arial, sans-serif;
-            font-size: .75rem;
-            color: var(--accent);
-            letter-spacing: .2em;
-        }
-
-        .topic-card h3 {
-            color: var(--primary);
-            font-size: 2rem;
-            margin: 18px 0 12px;
-        }
-
-        .topic-card p {
-            color: var(--muted);
-            font-size: .98rem;
-        }
-
-        .topic-card a {
-            display: inline-block;
-            margin-top: 25px;
-            color: var(--secondary);
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            font-size: .78rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-        }
-
-        /* =========================
-           ARTICLE DIRECTORY
-        ========================= */
-
-        .directory {
-            background: var(--primary);
-            color: white;
-        }
-
-        .directory .section-heading h2 {
-            color: white;
-        }
-
-        .directory .section-heading p {
-            color: rgba(255,255,255,.72);
-        }
-
-        .directory-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .directory-column {
-            border: 1px solid rgba(255,255,255,.16);
-            padding: 28px;
-        }
-
-        .directory-column h3 {
-            color: #e2c98f;
-            margin-bottom: 20px;
-            font-size: 1.35rem;
-        }
-
-        .directory-column a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255,255,255,.12);
-            font-size: .96rem;
-            transition: .25s;
-        }
-
-        .directory-column a:last-child {
-            border-bottom: none;
-        }
-
-        .directory-column a:hover {
-            color: #e2c98f;
-            padding-left: 5px;
-        }
-
-        /* =========================
-           ARTICLE SECTIONS
-        ========================= */
-
-        .article-section {
-            background: white;
-        }
-
-        .article-section:nth-of-type(even) {
-            background: var(--cream);
-        }
-
-        .article-header {
-            max-width: 850px;
-            margin: 0 auto 55px;
-            text-align: center;
-        }
-
-        .article-header .category {
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: .25em;
-            color: var(--accent);
-            font-size: .7rem;
-            font-weight: bold;
-        }
-
-        .article-header h2 {
-            color: var(--primary);
-            font-size: clamp(2.3rem, 5vw, 4.3rem);
-            line-height: 1.1;
-            font-weight: 500;
-            margin: 15px 0;
-        }
-
-        .article-header p {
-            color: var(--muted);
-        }
-
-        .article {
-            max-width: 850px;
-            margin: 0 auto 80px;
-        }
-
-        .article:last-child {
-            margin-bottom: 0;
-        }
-
-        .article h3 {
-            color: var(--primary);
-            font-size: clamp(1.65rem, 3vw, 2.25rem);
-            font-weight: 500;
-            margin-bottom: 25px;
-        }
-
-        .article p {
-            margin-bottom: 22px;
-            color: #303a35;
-            font-size: 1.03rem;
-        }
-
-        .article strong {
-            color: var(--primary);
-        }
-
-        .takeaway {
-            max-width: 850px;
-            margin: 50px auto 0;
-            padding: 30px;
-            border-left: 4px solid var(--accent);
-            background: rgba(200,169,107,.1);
-        }
-
-        .takeaway h4 {
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: .15em;
-            font-size: .75rem;
-            color: var(--secondary);
-            margin-bottom: 8px;
-        }
-
-        /* =========================
-           CONTRIBUTORS
-        ========================= */
-
-        .contributors {
-            background: var(--cream);
-        }
-
-        .contributors-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 25px;
-        }
-
-        .person {
-            text-align: center;
-        }
-
-        .person-photo {
-            width: 145px;
-            height: 145px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            margin: 0 auto 20px;
-            border: 5px solid white;
-            box-shadow: 0 8px 25px rgba(0,0,0,.1);
-        }
-
-        .person h3 {
-            color: var(--primary);
-            font-size: 1.15rem;
-            margin-bottom: 5px;
-        }
-
-        .person p {
-            color: var(--muted);
-            font-family: Arial, sans-serif;
-            font-size: .78rem;
-        }
-
-        /* =========================
-           REFERENCES
-        ========================= */
-
-        .references {
-            background: white;
-        }
-
-        .reference-list {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .reference-list p {
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-            color: #38433e;
-            font-size: .95rem;
-        }
-
-        .reference-list p:last-child {
-            border-bottom: none;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            background: #102d26;
-            color: rgba(255,255,255,.7);
-            text-align: center;
-            padding: 45px 25px;
-            font-family: Arial, sans-serif;
-            font-size: .8rem;
-        }
-
-        footer strong {
-            color: white;
-        }
-
-        /* =========================
-           REVEAL
-        ========================= */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(25px);
-            transition: opacity .8s ease, transform .8s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 900px) {
-            .topic-grid,
-            .directory-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contributors-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 78px;
-                left: 0;
-                right: 0;
-                background: white;
-                display: none;
-                flex-direction: column;
-                padding: 25px;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-btn {
-                display: block;
-            }
-        }
-
-        @media (max-width: 550px) {
-            section {
-                padding: 70px 18px;
-            }
-
-            .hero {
-                min-height: 580px;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .contributors-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-            }
-
-            .person-photo {
-                width: 115px;
-                height: 115px;
-            }
-
-            .article p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <meta
+        name="description"
+        content="The Initiative for Human and Environmental Wellbeing — exploring health, education, and environmental responsibility."
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
 </head>
 
 <body>
 
-<header>
-    <nav class="navbar">
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
 
-        <a href="#home" class="logo">
-            THE INITIATIVE
-            <span>Human & Environmental Wellbeing</span>
-        </a>
+    <header class="navbar">
 
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-            ☰
-        </button>
+        <div class="nav-container">
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#topics">Topics</a></li>
-            <li><a href="#articles">Articles</a></li>
-            <li><a href="#contributors">Contributors</a></li>
-            <li><a href="#references">References</a></li>
-        </ul>
+            <a href="#home" class="logo">
+                <span class="logo-mark">H</span>
 
-    </nav>
-</header>
+                <span class="logo-text">
+                    The Initiative
+                    <small>Human & Environmental Wellbeing</small>
+                </span>
+            </a>
 
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-<!-- =========================
-     HERO
-========================= -->
+            <nav class="nav-menu" id="navMenu">
 
-<section class="hero" id="home">
+                <a href="#home" class="nav-link active">Home</a>
 
-    <div class="hero-content reveal">
+                <a href="#health" class="nav-link">
+                    Health
+                </a>
 
-        <div class="eyebrow">
-            Knowledge • Wellbeing • Responsibility
+                <a href="#education" class="nav-link">
+                    Education
+                </a>
+
+                <a href="#environment" class="nav-link">
+                    Environment
+                </a>
+
+                <a href="#autobiographies" class="nav-link">
+                    Autobiographies
+                </a>
+
+            </nav>
+
         </div>
 
-        <h1>
-            The Initiative for Human and Environmental Wellbeing
-        </h1>
-
-        <p>
-            Exploring health, education, and environmental responsibility
-            through simple ideas, everyday habits, and meaningful action.
-        </p>
-
-        <a href="#topics" class="hero-button">
-            Explore the Initiative
-        </a>
-
-    </div>
-
-</section>
+    </header>
 
 
-<!-- =========================
-     TOPICS
-========================= -->
+    <!-- =========================
+         HERO
+    ========================== -->
 
-<section class="topics" id="topics">
+    <main>
 
-    <div class="container">
+        <section id="home" class="hero">
 
-        <div class="section-heading reveal">
-            <small>Three Foundations</small>
-            <h2>What Shapes Our Wellbeing</h2>
-            <p>
-                Our lives are influenced by the way we care for ourselves,
-                the way we learn, and the way we treat the world around us.
-            </p>
-        </div>
+            <div class="hero-background"></div>
 
-        <div class="topic-grid">
+            <div class="hero-overlay"></div>
 
-            <div class="topic-card reveal">
-                <span class="topic-number">01 / HEALTH</span>
-                <h3>Health</h3>
-                <p>
-                    Health is more than simply avoiding illness. It includes
-                    physical wellbeing, mental health, emotional balance,
-                    healthy habits, and knowing when to ask for help.
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    HUMAN • EDUCATION • ENVIRONMENT
                 </p>
-                <a href="#health">Read Health</a>
-            </div>
 
-            <div class="topic-card reveal">
-                <span class="topic-number">02 / EDUCATION</span>
-                <h3>Education</h3>
-                <p>
-                    Education gives us opportunities to gain knowledge,
-                    develop skills, think critically, discover our abilities,
-                    and continue learning throughout our lives.
+                <h1>
+                    The Initiative for
+                    <span>Human & Environmental</span>
+                    Wellbeing
+                </h1>
+
+                <p class="hero-description">
+                    Exploring the simple choices, habits, and ideas that
+                    can help us create healthier people, stronger communities,
+                    and a better environment.
                 </p>
-                <a href="#education">Read Education</a>
+
+                <div class="hero-buttons">
+
+                    <a href="#health" class="primary-button">
+                        Explore the Initiative
+                        <span>→</span>
+                    </a>
+
+                    <a href="#autobiographies" class="secondary-button">
+                        Meet the Contributors
+                    </a>
+
+                </div>
+
             </div>
 
-            <div class="topic-card reveal">
-                <span class="topic-number">03 / ENVIRONMENT</span>
-                <h3>Environment</h3>
-                <p>
-                    Protecting the environment begins with everyday choices:
-                    reducing waste, conserving resources, connecting with
-                    nature, and turning concern into action.
+            <div class="scroll-indicator">
+                <span>SCROLL TO EXPLORE</span>
+                <div class="scroll-line"></div>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INTRODUCTION
+        ========================== -->
+
+        <section class="intro-section">
+
+            <div class="section-container">
+
+                <div class="intro-grid">
+
+                    <div class="intro-heading">
+
+                        <p class="section-label">
+                            OUR PURPOSE
+                        </p>
+
+                        <h2>
+                            Small choices.
+                            <br>
+                            <em>Meaningful change.</em>
+                        </h2>
+
+                    </div>
+
+                    <div class="intro-text">
+
+                        <p>
+                            The world around us is shaped by the decisions
+                            we make every day. How we care for our bodies,
+                            how we continue learning, and how we treat our
+                            environment all contribute to the kind of future
+                            we create.
+                        </p>
+
+                        <p>
+                            This initiative explores three areas that are
+                            deeply connected to everyday life:
+                            <strong>health, education, and the environment.</strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="topic-cards">
+
+                    <a href="#health" class="topic-card health-card">
+
+                        <div class="topic-number">01</div>
+
+                        <div class="topic-icon">✦</div>
+
+                        <div>
+                            <h3>Health</h3>
+                            <p>
+                                Caring for our physical and mental
+                                wellbeing through simple daily habits.
+                            </p>
+                        </div>
+
+                        <span class="topic-arrow">↗</span>
+
+                    </a>
+
+
+                    <a href="#education" class="topic-card education-card">
+
+                        <div class="topic-number">02</div>
+
+                        <div class="topic-icon">◇</div>
+
+                        <div>
+                            <h3>Education</h3>
+                            <p>
+                                Understanding knowledge, opportunity,
+                                curiosity, and lifelong learning.
+                            </p>
+                        </div>
+
+                        <span class="topic-arrow">↗</span>
+
+                    </a>
+
+
+                    <a href="#environment" class="topic-card environment-card">
+
+                        <div class="topic-number">03</div>
+
+                        <div class="topic-icon">○</div>
+
+                        <div>
+                            <h3>Environment</h3>
+                            <p>
+                                Discovering how everyday choices can
+                                protect the world around us.
+                            </p>
+                        </div>
+
+                        <span class="topic-arrow">↗</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             HEALTH
+        ====================================================== -->
+
+        <section
+            id="health"
+            class="essay-section essay-health"
+        >
+
+            <div class="essay-background"></div>
+
+            <div class="essay-overlay"></div>
+
+            <div class="essay-container">
+
+                <div class="essay-header">
+
+                    <div>
+
+                        <p class="section-label light">
+                            01 / HEALTH
+                        </p>
+
+                        <h2>
+                            Health Is Wealth:
+                            <span>How Simple Habits Can Improve Our Everyday Lives</span>
+                        </h2>
+
+                    </div>
+
+                    <div class="essay-decoration">
+                        HEALTH
+                    </div>
+
+                </div>
+
+
+                <article class="essay-content">
+
+                    <h3>Taking Care of Our Physical Health</h3>
+
+                    <p>
+                        Health is one of the most important parts of our lives.
+                        There is a reason people say that health is wealth because
+                        no amount of money or material success can completely
+                        replace good health once it is lost. Being healthy is not
+                        only about being free from diseases or illnesses. It also
+                        means taking care of our bodies through the choices we make
+                        every day. As students, we often become busy with classes,
+                        assignments, examinations, projects, and other
+                        responsibilities. Because of this, taking care of our
+                        physical health can sometimes become something we forget
+                        about.
+                    </p>
+
+                    <p>
+                        One of the most important parts of physical health is
+                        proper nutrition. Food provides the energy and nutrients
+                        our bodies need to grow, function, and remain healthy.
+                        According to the World Health Organization (WHO, 2026),
+                        a healthy diet should have adequacy, balance, moderation,
+                        and diversity. It recommends eating a variety of
+                        nutritious foods while limiting foods that contain
+                        excessive amounts of unhealthy fats, free sugars, and
+                        sodium. The organization also explains that healthy eating
+                        habits developed early in life can continue into adulthood.
+                    </p>
+
+                    <p>
+                        For students, eating properly can affect how we function
+                        throughout the day. It can be difficult to concentrate in
+                        class or participate in activities when we are hungry or
+                        do not have enough energy. UNICEF (n.d.) identifies
+                        unhealthy diets and inactive lifestyles as some of the
+                        important health issues affecting adolescents today.
+                        This shows why developing healthier habits while we are
+                        young is important instead of waiting until we become
+                        adults.
+                    </p>
+
+                    <p>
+                        We can start with simple habits such as eating regular
+                        meals, drinking enough water, and including fruits,
+                        vegetables, whole grains, and sources of protein in our
+                        diet. We do not have to completely remove our favorite
+                        foods from our lives. Instead, we can learn how to enjoy
+                        them in moderation while making nutritious food a regular
+                        part of our meals.
+                    </p>
+
+                    <p>
+                        Physical activity is another important part of maintaining
+                        a healthy body. Many students spend several hours sitting
+                        in classrooms, studying, using computers, or scrolling
+                        through their phones. Although these activities are part
+                        of modern life, spending too much time being inactive can
+                        affect our health. According to the World Health Organization
+                        (WHO, 2024), regular physical activity can improve physical
+                        fitness, bone health, cognitive development, and mental
+                        health among children and adolescents.
+                    </p>
+
+                    <p>
+                        The WHO recommends that children and adolescents get an
+                        average of at least 60 minutes of moderate-to-vigorous
+                        physical activity each day. However, exercise does not
+                        always have to mean going to a gym or following a difficult
+                        workout routine. Walking, dancing, playing sports, riding
+                        a bicycle, swimming, stretching, and even doing household
+                        chores can help us stay active. The important thing is to
+                        find activities that we enjoy and make movement part of
+                        our routine.
+                    </p>
+
+                    <p>
+                        Sleep is another part of physical health that students
+                        sometimes ignore. Assignments, examinations, social media,
+                        games, and other responsibilities can cause us to stay
+                        awake later than we should. However, not getting enough
+                        sleep can affect our concentration, behavior, mental health,
+                        and academic performance. The Centers for Disease Control
+                        and Prevention (CDC, 2024) states that teenagers aged 13–18
+                        generally need 8 to 10 hours of sleep each day and that
+                        insufficient sleep can contribute to health and attention
+                        problems among students.
+                    </p>
+
+                    <p>
+                        Personal hygiene is also important. Bathing regularly,
+                        washing our hands, brushing our teeth, wearing clean clothes,
+                        and keeping our surroundings clean are simple habits that
+                        can help protect us from illness. These actions may seem
+                        ordinary, but they are part of being responsible for our
+                        own health.
+                    </p>
+
+                    <p>
+                        Taking care of our physical health does not mean that we
+                        have to be perfect. There will be days when we eat our
+                        favorite unhealthy food, fail to exercise, or stay up
+                        later than we should. What matters is that these choices
+                        do not become permanent habits. Health is built through
+                        consistency rather than perfection.
+                    </p>
+
+                    <p>
+                        Our bodies allow us to study, work, spend time with people
+                        we love, and pursue our goals. Because of this, we should
+                        not wait until we become sick before we start taking care
+                        of ourselves. Eating properly, staying active, getting
+                        enough sleep, and practicing good hygiene are simple choices,
+                        but they can have lasting effects.
+                    </p>
+
+                    <p>
+                        In the end, physical health is built through the habits
+                        we practice every day. The choices we make today may seem
+                        small, but they can influence our health as we grow older.
+                        Taking care of our bodies now is one of the simplest ways
+                        we can prepare ourselves for a healthier future.
+                    </p>
+
+
+                    <div class="essay-divider"></div>
+
+
+                    <h3>More Than What We Can See</h3>
+
+                    <p>
+                        When people talk about health, they usually think about
+                        the physical body. We think about eating healthy food,
+                        exercising, avoiding sickness, and maintaining good hygiene.
+                        However, health is not only something that can be seen.
+                        A person can look perfectly healthy on the outside while
+                        struggling with stress, anxiety, sadness, or emotional
+                        exhaustion. This is why mental and emotional health should
+                        be treated as an important part of our overall well-being.
+                    </p>
+
+                    <p>
+                        Students experience different kinds of pressure every day.
+                        We have assignments to finish, examinations to prepare for,
+                        projects to complete, and expectations that we try to meet.
+                        Aside from school, we may also experience family problems,
+                        friendship issues, financial concerns, and worries about
+                        the future. When several problems happen at the same time,
+                        it can become difficult to manage everything.
+                    </p>
+
+                    <p>
+                        According to the World Health Organization (WHO, 2025),
+                        one in seven adolescents between the ages of 10 and 19
+                        experiences a mental health condition. Anxiety, depression,
+                        and behavioral disorders are among the common mental health
+                        concerns among adolescents.
+                    </p>
+
+                    <p>
+                        These facts show why mental health should not be ignored.
+                        Feeling stressed, worried, sad, or overwhelmed does not
+                        automatically mean that someone is weak. Difficult emotions
+                        are a normal part of life. What matters is learning how to
+                        recognize these emotions and finding healthy ways to deal
+                        with them.
+                    </p>
+
+                    <p>
+                        One way to protect our mental health is by giving ourselves
+                        time to rest. Students sometimes feel guilty for taking
+                        breaks because they believe they should always be productive.
+                        However, constantly working without giving ourselves time
+                        to recover can make us even more exhausted.
+                    </p>
+
+                    <p>
+                        Physical activity can also support mental health. According
+                        to the World Health Organization (WHO, 2024), regular
+                        physical activity provides significant physical and mental
+                        health benefits. For children and adolescents, it can
+                        support cognitive development, mental health, and overall
+                        well-being.
+                    </p>
+
+                    <p>
+                        Another important part of mental health is having people
+                        we can trust. When problems become too difficult to handle
+                        alone, talking to a friend, family member, teacher,
+                        counselor, or another trusted person can provide support.
+                    </p>
+
+                    <p>
+                        We should also learn to recognize when other people may be
+                        struggling. Not everyone expresses their emotions openly.
+                        Someone who seems happy may be dealing with problems that
+                        we know nothing about.
+                    </p>
+
+                    <p>
+                        Mental health can also affect education. Anxiety and
+                        depressive disorders can affect school attendance and
+                        schoolwork, according to WHO (2025). This shows that mental
+                        health and academic life are connected.
+                    </p>
+
+                    <p>
+                        Social media is another factor that can influence young
+                        people's well-being. We constantly see other people's
+                        achievements, appearances, relationships, and lifestyles
+                        online. Comparing ourselves to what we see online can make
+                        us feel as though we are not doing enough.
+                    </p>
+
+                    <p>
+                        Health is more than what can be seen in a mirror. Sometimes,
+                        the struggles that require the most attention are the ones
+                        that cannot be seen at all. By taking mental health seriously,
+                        being kinder to ourselves, and supporting the people around
+                        us, we can create a healthier environment for everyone.
+                    </p>
+
+
+                    <div class="essay-divider"></div>
+
+
+                    <h3>Health in Our Daily Lives</h3>
+
+                    <p>
+                        Good health does not usually come from one major decision.
+                        More often, it is built through the small choices we make
+                        every day. The food we eat, the amount of physical activity
+                        we get, how much we sleep, and how we handle stress can all
+                        affect our well-being.
+                    </p>
+
+                    <p>
+                        One of the easiest places to begin is with our eating habits.
+                        Students often have busy mornings and may skip breakfast
+                        because they are late for school. Others may choose fast
+                        food because it is convenient or forget to eat properly
+                        because they are focused on schoolwork.
+                    </p>
+
+                    <p>
+                        Physical activity is another habit that students should
+                        include in their daily routines. Schoolwork and technology
+                        can cause us to spend many hours sitting. According to WHO
+                        (2024), regular physical activity can improve physical
+                        fitness, cognitive development, mental health, and overall
+                        well-being.
+                    </p>
+
+                    <p>
+                        Sleep is another habit that students often sacrifice.
+                        Assignments, examinations, projects, social media, and
+                        entertainment can cause us to stay awake later than we
+                        should. According to the CDC (2024), teenagers between
+                        13 and 18 years old should generally get 8 to 10 hours
+                        of sleep per day.
+                    </p>
+
+                    <p>
+                        Because of this, managing our time is part of maintaining
+                        our health. Finishing schoolwork is important, but constantly
+                        sacrificing sleep and rest can make it harder for us to
+                        function properly.
+                    </p>
+
+                    <p>
+                        Our mental well-being should also be included in our daily
+                        routine. School can be stressful, especially when several
+                        deadlines and examinations happen at the same time.
+                    </p>
+
+                    <p>
+                        This is why students should learn to recognize when they
+                        need a break. Taking time to rest, listen to music, enjoy
+                        a hobby, spend time with friends or family, or simply step
+                        away from schoolwork for a while does not mean that we are
+                        avoiding our responsibilities.
+                    </p>
+
+                    <p>
+                        Knowing when to ask for help is also an important healthy
+                        habit. If we are struggling with schoolwork, stress,
+                        relationships, or personal problems, reaching out to someone
+                        we trust can make difficult situations easier to handle.
+                    </p>
+
+                    <p>
+                        Healthy habits do not need to be complicated. We do not have
+                        to completely change our lifestyle in one day. Small and
+                        consistent choices are often more realistic and easier to
+                        maintain.
+                    </p>
+
+                    <p>
+                        As students, we sometimes think that getting good grades is
+                        the most important thing we need to achieve. However, our
+                        health should not be sacrificed just to meet academic
+                        expectations.
+                    </p>
+
+                    <p>
+                        In the end, a healthy lifestyle is built through everyday
+                        decisions. The choices we make today may seem small, but
+                        they can become habits that influence our future.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             EDUCATION
+        ====================================================== -->
+
+        <section
+            id="education"
+            class="essay-section essay-education"
+        >
+
+            <div class="essay-background"></div>
+
+            <div class="essay-overlay"></div>
+
+            <div class="essay-container">
+
+                <div class="essay-header">
+
+                    <div>
+
+                        <p class="section-label light">
+                            02 / EDUCATION
+                        </p>
+
+                        <h2>
+                            Knowledge is free and collectable,
+                            <span>but education is not.</span>
+                        </h2>
+
+                    </div>
+
+                    <div class="essay-decoration">
+                        LEARN
+                    </div>
+
+                </div>
+
+
+                <article class="essay-content">
+
+                    <h3>Education and Knowledge</h3>
+
+                    <p>
+                        Education is one of the main ways people gain knowledge,
+                        develop skills, and understand the world around them. It
+                        is more than simply memorizing information for an examination.
+                        Education is the process of learning ideas, developing
+                        abilities, understanding values, and using what we learn
+                        in real situations.
+                    </p>
+
+                    <p>
+                        Schools are one of the most common places where education
+                        takes place. Students spend years attending classes,
+                        completing activities, reading books, conducting research,
+                        and learning from teachers. However, education does not
+                        begin and end inside a classroom.
+                    </p>
+
+                    <p>
+                        Unfortunately, not everyone has equal access to education.
+                        Some children are unable to attend school because of poverty,
+                        conflict, distance, discrimination, or other circumstances.
+                        According to UNICEF (n.d.), millions of children and young
+                        people around the world remain out of school.
+                    </p>
+
+                    <p>
+                        Learning can happen in different ways. A person can learn
+                        by reading books, observing other people, asking questions,
+                        practicing a skill, or experiencing something personally.
+                        Rationalism gives an important role to reason and knowledge
+                        derived through thought, while Empiricism emphasizes
+                        experience and observation as sources of knowledge.
+                    </p>
+
+                    <p>
+                        Even basic activities involve learning. A child learns
+                        how to walk, communicate, socialize, count, read, write,
+                        follow rules, and understand values. These abilities provide
+                        a foundation for more complicated learning later in life.
+                    </p>
+
+                    <p>
+                        Curiosity is another important part of education. People
+                        naturally ask questions about the world around them.
+                        Education gives people opportunities to explore these
+                        questions instead of simply accepting that they will never
+                        know the answers.
+                    </p>
+
+                    <p>
+                        Reading is one way people can continue learning even outside
+                        formal education. Books, articles, research, and other
+                        reliable materials allow people to encounter ideas that
+                        they may never experience personally.
+                    </p>
+
+                    <p>
+                        Education also helps people understand that not everything
+                        they encounter is automatically true. Learning how to
+                        analyze information, compare sources, ask questions, and
+                        use evidence is especially important in a world where
+                        information can spread quickly.
+                    </p>
+
+                    <p>
+                        Education therefore provides more than facts. It gives
+                        people tools for understanding those facts. It allows us
+                        to ask questions, examine evidence, learn from experience,
+                        and develop our own understanding.
+                    </p>
+
+                    <p>
+                        The world continues to change, and the knowledge people
+                        need also changes with it. New technologies, discoveries,
+                        careers, and problems continue to appear. Because of this,
+                        learning should not stop when a person leaves school.
+                    </p>
+
+                    <p>
+                        In the end, education is not simply about collecting
+                        information. It is about developing the ability to understand,
+                        question, and apply knowledge.
+                    </p>
+
+
+                    <div class="essay-divider"></div>
+
+
+                    <h3>Education and Opportunity</h3>
+
+                    <p>
+                        Education is often described as a basic part of growing up,
+                        but not everyone receives the same opportunities to
+                        experience it. Education therefore involves not only
+                        learning but also access to opportunities that can influence
+                        a person's future.
+                    </p>
+
+                    <p>
+                        Schools provide a structured environment where students
+                        can develop knowledge and skills. Teachers guide students
+                        through different subjects, while classmates provide
+                        opportunities to communicate and work with others.
+                    </p>
+
+                    <p>
+                        However, access to education is not always equal. Poverty
+                        remains one of the factors that can prevent children from
+                        receiving education. Some families may struggle to afford
+                        school supplies, transportation, uniforms, technology, or
+                        other expenses connected to schooling.
+                    </p>
+
+                    <p>
+                        Programs that help children receive education can therefore
+                        make an important difference. One example is Project
+                        Malasakit, which works to support communities and children
+                        through different forms of assistance.
+                    </p>
+
+                    <p>
+                        Education can also provide people with opportunities beyond
+                        what they currently know. A child may enter school with
+                        only a basic understanding of the world but eventually
+                        discover an interest in science, art, law, business,
+                        technology, or another field.
+                    </p>
+
+                    <p>
+                        Learning also happens outside school. A person can learn
+                        skills from their family, community, work, books, personal
+                        experiences, or other people.
+                    </p>
+
+                    <p>
+                        Education can also influence a person's ability to
+                        participate in society. A person who receives quality
+                        education may have more opportunities to pursue further
+                        studies, employment, or other goals.
+                    </p>
+
+                    <p>
+                        Not every student will have the same interests, talents,
+                        or goals. Some may want to become doctors, lawyers, teachers,
+                        engineers, artists, entrepreneurs, or something completely
+                        different.
+                    </p>
+
+                    <p>
+                        In the end, education should be understood as both a right
+                        and an opportunity. Every child deserves the chance to
+                        learn, regardless of their financial situation or background.
+                    </p>
+
+
+                    <div class="essay-divider"></div>
+
+
+                    <h3>Education and Adaptation</h3>
+
+                    <p>
+                        The world is constantly changing. New technologies are
+                        being developed, scientific discoveries are being made,
+                        jobs are changing, and societies continue to develop.
+                        Because of these changes, people cannot simply depend on
+                        the knowledge that was available in the past.
+                    </p>
+
+                    <p>
+                        Education is not only about memorizing information that
+                        will appear on a test. It is also about developing the
+                        ability to understand new information and respond to
+                        situations we have never experienced before.
+                    </p>
+
+                    <p>
+                        Technology is one clear example of how quickly the world
+                        can change. New devices, software, artificial intelligence,
+                        and online platforms continue to develop.
+                    </p>
+
+                    <p>
+                        Education also helps people understand risks. In everyday
+                        life, we encounter things that can be dangerous if we do
+                        not understand them. We learn about chemicals, electricity,
+                        diseases, natural disasters, technology, and other potential
+                        risks through education and experience.
+                    </p>
+
+                    <p>
+                        Curiosity plays an important role in this process. People
+                        naturally want to know how and why things work. Education
+                        provides opportunities for people to explore their curiosity.
+                    </p>
+
+                    <p>
+                        A person may graduate from school, but they will continue
+                        to encounter new situations throughout life. Continuing
+                        to learn allows people to adapt instead of becoming
+                        completely dependent on what they already know.
+                    </p>
+
+                    <p>
+                        Education can also help people become more critical when
+                        dealing with information. The internet gives us access to
+                        an enormous amount of information, but not everything
+                        online is accurate.
+                    </p>
+
+                    <p>
+                        The importance of education can also be connected to
+                        Maslow's Hierarchy of Needs. Maslow's theory suggests that
+                        people have different levels of needs, beginning with basic
+                        physiological needs and extending toward safety, belonging,
+                        esteem, and self-actualization.
+                    </p>
+
+                    <p>
+                        This helps explain why education matters beyond basic
+                        survival. Humans do not only want to survive. We also want
+                        to understand, create, discover, improve, and accomplish
+                        things.
+                    </p>
+
+                    <p>
+                        Education therefore gives people more than knowledge for
+                        the present. It gives them the ability to gain knowledge
+                        for the future.
+                    </p>
+
+                    <p>
+                        In the end, education remains important because the world
+                        is never finished changing. What we know today may not be
+                        enough for the problems of tomorrow.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ENVIRONMENT
+        ====================================================== -->
+
+        <section
+            id="environment"
+            class="essay-section essay-environment"
+        >
+
+            <div class="essay-background"></div>
+
+            <div class="essay-overlay"></div>
+
+            <div class="essay-container">
+
+                <div class="essay-header">
+
+                    <div>
+
+                        <p class="section-label light">
+                            03 / ENVIRONMENT
+                        </p>
+
+                        <h2>
+                            How Simple Habits Can
+                            <span>Protect Our Everyday World</span>
+                        </h2>
+
+                    </div>
+
+                    <div class="essay-decoration">
+                        EARTH
+                    </div>
+
+                </div>
+
+
+                <article class="essay-content">
+
+                    <h3>Our Everyday Impact</h3>
+
+                    <p>
+                        The environment is connected to almost everything we do.
+                        The air we breathe, the water we drink, the food we eat,
+                        and the places where we live all depend on a healthy planet.
+                        Because of this, protecting the environment should not only
+                        be the responsibility of governments, organizations, or
+                        environmental groups.
+                    </p>
+
+                    <p>
+                        One of the simplest ways to help the environment is to
+                        become more aware of what we buy and what we throw away.
+                        Modern life has made it very easy to purchase things
+                        whenever we want them.
+                    </p>
+
+                    <p>
+                        The things we buy require natural resources to produce.
+                        Materials need to be collected, processed, transported,
+                        and eventually disposed of. When we constantly purchase
+                        unnecessary products and throw them away after a short
+                        period of time, we contribute to the growing amount of waste.
+                    </p>
+
+                    <p>
+                        We can become more responsible consumers. Before buying
+                        something, we can ask ourselves whether we actually need
+                        it or whether we simply want it because it is popular.
+                        We can choose products that can be reused instead of
+                        disposable ones.
+                    </p>
+
+                    <p>
+                        Fast fashion is another issue worth considering. Trends
+                        change quickly, and social media often encourages people
+                        to constantly buy new clothes to keep up with them.
+                    </p>
+
+                    <p>
+                        Plastic waste is also a common problem in our daily lives.
+                        Single-use plastics are convenient because they are easy
+                        to use and throw away, but their convenience can come with
+                        environmental consequences.
+                    </p>
+
+                    <p>
+                        Our habits at school can also affect the environment.
+                        Students use paper, electricity, food packaging, and other
+                        materials every day.
+                    </p>
+
+                    <p>
+                        It is easy to believe that one person's actions are too
+                        small to make a difference. However, environmental problems
+                        are often created by millions of small actions happening
+                        repeatedly.
+                    </p>
+
+                    <p>
+                        Protecting the environment begins with being more aware of
+                        our choices. Every time we reuse something instead of
+                        throwing it away, refuse unnecessary plastic, or think
+                        carefully before buying something, we are making a small
+                        decision that can contribute to a bigger change.
+                    </p>
+
+                    <p>
+                        By becoming more responsible about what we consume and
+                        what we throw away, we are not only reducing waste but
+                        also protecting the resources that future generations
+                        will need.
+                    </p>
+
+
+                    <div class="essay-divider"></div>
+
+
+                    <h3>Using What We Have Responsibly</h3>
+
+                    <p>
+                        The environment provides us with many things that we depend
+                        on every day. We need water to drink, electricity to power
+                        our homes and schools, and transportation to help us travel
+                        from one place to another.
+                    </p>
+
+                    <p>
+                        Water is one of the most valuable resources we have. We
+                        use it for drinking, cooking, cleaning, bathing, and many
+                        other activities.
+                    </p>
+
+                    <p>
+                        Saving water does not require major changes. We can turn
+                        off the faucet when we are not using it, take shorter
+                        showers, fix leaking pipes or faucets, and avoid using
+                        more water than necessary.
+                    </p>
+
+                    <p>
+                        Energy is another resource that we often use without
+                        thinking about it. Lights, fans, air conditioners,
+                        computers, televisions, and other appliances require
+                        electricity.
+                    </p>
+
+                    <p>
+                        Students can help conserve energy through simple actions.
+                        Turning off lights when leaving a room, switching off
+                        computers after finishing schoolwork, unplugging devices
+                        when they are no longer needed, and using natural light
+                        when possible can reduce unnecessary electricity use.
+                    </p>
+
+                    <p>
+                        Transportation is another part of everyday life that
+                        affects the environment. Many vehicles depend on fossil
+                        fuels, which contribute to air pollution and greenhouse
+                        gas emissions.
+                    </p>
+
+                    <p>
+                        Whenever it is practical and safe, walking or riding a
+                        bicycle can be an environmentally friendly option for
+                        shorter distances.
+                    </p>
+
+                    <p>
+                        Of course, not everyone has the same transportation
+                        options. Some students live far from school, while others
+                        may not have access to public transportation or safe areas
+                        for walking or cycling.
+                    </p>
+
+                    <p>
+                        Using resources responsibly is not about making life
+                        uncomfortable. It is about avoiding unnecessary waste.
+                        We can still use electricity, water, and transportation
+                        while being more conscious of how we use them.
+                    </p>
+
+                    <p>
+                        The resources we have today will also be needed by people
+                        in the future. If we learn to use them carefully now, we
+                        can help protect the environment while still meeting our
+                        needs.
+                    </p>
+
+
+                    <div class="essay-divider"></div>
+
+
+                    <h3>From Concern to Action</h3>
+
+                    <p>
+                        Environmental problems have become impossible to ignore.
+                        News about climate change, pollution, deforestation,
+                        extreme weather, and the loss of wildlife appears regularly
+                        on our screens.
+                    </p>
+
+                    <p>
+                        While being aware of these problems is important,
+                        constantly thinking about them can also make us feel
+                        worried and powerless.
+                    </p>
+
+                    <p>
+                        UNESCO (2024) has identified eco-anxiety as a growing
+                        concern among young people. Eco-anxiety refers to feelings
+                        of worry, fear, or distress related to environmental
+                        problems and the future of the planet.
+                    </p>
+
+                    <p>
+                        It is understandable to feel concerned when environmental
+                        problems seem so large. Climate change and pollution
+                        cannot be solved by one student alone.
+                    </p>
+
+                    <p>
+                        One way to respond is by participating in environmental
+                        activities in our schools and communities. Joining
+                        clean-up drives, planting trees, helping with recycling
+                        programs, or participating in environmental campaigns
+                        can give students the opportunity to contribute directly.
+                    </p>
+
+                    <p>
+                        Talking about environmental concerns can also help.
+                        Students can discuss environmental issues with their
+                        classmates, teachers, families, and communities.
+                    </p>
+
+                    <p>
+                        Spending time in nature is another way to develop a
+                        stronger connection with the environment. Walking in a
+                        park, visiting a beach, taking care of plants, or helping
+                        in a school garden can remind us that nature is not just
+                        something we read about in textbooks.
+                    </p>
+
+                    <p>
+                        Students can also make small environmental choices in
+                        their daily routines. We can bring reusable bottles and
+                        bags, reduce unnecessary waste, save water, turn off
+                        lights and appliances when they are not needed, and
+                        properly dispose of our garbage.
+                    </p>
+
+                    <p>
+                        Environmental protection also requires cooperation.
+                        Individuals cannot solve global problems alone. Governments
+                        need effective policies, businesses need to consider
+                        sustainable practices, schools need to educate students,
+                        and communities need to work together.
+                    </p>
+
+                    <p>
+                        Our generation will eventually inherit the environmental
+                        conditions created by the choices made today. This can be
+                        frightening, but it can also be a reason to take action.
+                    </p>
+
+                    <p>
+                        We cannot personally repair every damaged ecosystem or
+                        solve every environmental problem. However, we can choose
+                        what we do with the part of the world that is within our
+                        reach.
+                    </p>
+
+                    <p>
+                        By turning concern into action, spending time in nature,
+                        making responsible choices, and encouraging others to
+                        participate, we can become part of the solution. We may
+                        not be able to change everything, but we can still change
+                        something.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             AUTOBIOGRAPHIES
+        ====================================================== -->
+
+        <section
+            id="autobiographies"
+            class="autobiography-section"
+        >
+
+            <div class="section-container">
+
+                <div class="autobiography-heading">
+
+                    <p class="section-label">
+                        THE CONTRIBUTORS
+                    </p>
+
+                    <h2>
+                        Our
+                        <em>Autobiographies</em>
+                    </h2>
+
+                    <p>
+                        The people behind the initiative.
+                    </p>
+
+                </div>
+
+
+                <div class="bio-grid">
+
+                    <!-- FLORIE -->
+
+                    <article class="bio-card">
+
+                        <div class="bio-image">
+
+                            <img
+                                src="images/florie.jpg"
+                                alt="Florie"
+                            >
+
+                            <div class="bio-image-overlay"></div>
+
+                            <span class="bio-number">
+                                01
+                            </span>
+
+                        </div>
+
+                        <div class="bio-content">
+
+                            <p class="bio-label">
+                                AUTOBIOGRAPHY
+                            </p>
+
+                            <h3>
+                                Florie
+                            </h3>
+
+                            <div class="bio-line"></div>
+
+                            <p>
+                                My name is Florie. I am a student who believes
+                                that every experience in life teaches us something
+                                valuable. Throughout my journey, I have learned
+                                the importance of working hard, appreciating the
+                                people around me, and continuing to grow as a person.
+                            </p>
+
+                            <p>
+                                My experiences in school and in everyday life have
+                                helped shape who I am today. I hope to continue
+                                learning, discovering my strengths, and becoming
+                                someone who can make a positive difference in the
+                                lives of others.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- JYLLANA -->
+
+                    <article class="bio-card">
+
+                        <div class="bio-image">
+
+                            <img
+                                src="images/jyllana.jpg"
+                                alt="Jyllana"
+                            >
+
+                            <div class="bio-image-overlay"></div>
+
+                            <span class="bio-number">
+                                02
+                            </span>
+
+                        </div>
+
+                        <div class="bio-content">
+
+                            <p class="bio-label">
+                                AUTOBIOGRAPHY
+                            </p>
+
+                            <h3>
+                                Jyllana
+                            </h3>
+
+                            <div class="bio-line"></div>
+
+                            <p>
+                                My name is Jyllana. I am a student who values
+                                learning, personal growth, and the experiences
+                                that shape us. Every stage of my life has taught
+                                me something different and has helped me understand
+                                myself better.
+                            </p>
+
+                            <p>
+                                I believe that education and the people we meet
+                                can influence the person we become. As I continue
+                                growing, I hope to learn from every experience,
+                                pursue my goals, and use what I learn to contribute
+                                positively to the people and community around me.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CLOSING
+        ========================== -->
+
+        <section class="closing-section">
+
+            <div class="closing-background"></div>
+
+            <div class="closing-overlay"></div>
+
+            <div class="closing-content">
+
+                <p class="section-label light">
+                    THE INITIATIVE
                 </p>
-                <a href="#environment">Read Environment</a>
-            </div>
 
-        </div>
+                <h2>
+                    A better future
+                    <br>
+                    begins with
+                    <em>what we do today.</em>
+                </h2>
 
-    </div>
+                <p>
+                    Our health, our education, and our environment are
+                    connected. Small actions become habits, habits become
+                    culture, and culture can create change.
+                </p>
 
-</section>
-
-
-<!-- =========================
-     ARTICLE DIRECTORY
-========================= -->
-
-<section class="directory" id="articles">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-            <small>Article Directory</small>
-            <h2>Explore the Essays</h2>
-            <p>
-                Three areas of everyday life, explored through practical
-                habits, reflection, and responsibility.
-            </p>
-        </div>
-
-        <div class="directory-grid">
-
-            <div class="directory-column reveal">
-
-                <h3>Health</h3>
-
-                <a href="#health-physical">
-                    Taking Care of Our Physical Health
-                </a>
-
-                <a href="#health-mental">
-                    More Than What We Can See
-                </a>
-
-                <a href="#health-daily">
-                    Health in Our Daily Lives
+                <a href="#home" class="primary-button">
+                    Back to Top
+                    <span>↑</span>
                 </a>
 
             </div>
 
+        </section>
 
-            <div class="directory-column reveal">
+    </main>
 
-                <h3>Education</h3>
 
-                <a href="#education-knowledge">
-                    Knowledge is Free and Collectable
-                </a>
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
-                <a href="#education-opportunity">
-                    Education and Opportunity
-                </a>
+    <footer>
 
-                <a href="#education-adaptation">
-                    Education and Adaptation
-                </a>
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <div class="logo footer-logo">
+
+                    <span class="logo-mark">
+                        H
+                    </span>
+
+                    <span class="logo-text">
+                        The Initiative
+                        <small>
+                            Human & Environmental Wellbeing
+                        </small>
+                    </span>
+
+                </div>
+
+                <p>
+                    Building awareness through health,
+                    education, and environmental responsibility.
+                </p>
 
             </div>
 
 
-            <div class="directory-column reveal">
+            <div class="footer-links">
 
-                <h3>Environment</h3>
+                <a href="#health">Health</a>
 
-                <a href="#environment-impact">
-                    Our Everyday Impact
-                </a>
+                <a href="#education">Education</a>
 
-                <a href="#environment-responsibly">
-                    Using What We Have Responsibly
-                </a>
+                <a href="#environment">Environment</a>
 
-                <a href="#environment-action">
-                    From Concern to Action
-                </a>
+                <a href="#autobiographies">Autobiographies</a>
 
             </div>
 
         </div>
 
-    </div>
 
-</section>
-
-
-<!-- =====================================================
-     HEALTH
-===================================================== -->
-
-<section class="article-section" id="health">
-
-    <div class="container">
-
-        <div class="article-header reveal">
-
-            <span class="category">Health</span>
-
-            <h2>
-                Health Is Wealth:
-                How Simple Habits Can Improve Our Everyday Lives
-            </h2>
+        <div class="footer-bottom">
 
             <p>
-                Understanding physical health, mental wellbeing, and the
-                everyday choices that help us live healthier lives.
+                © <span id="currentYear"></span>
+                The Initiative for Human and Environmental Wellbeing.
+            </p>
+
+            <p>
+                Made with purpose.
             </p>
 
         </div>
 
+    </footer>
 
-        <!-- HEALTH ARTICLE 1 -->
 
-        <article class="article reveal" id="health-physical">
-
-            <h3>Taking Care of Our Physical Health</h3>
-
-            <p>
-                Health is one of the most important parts of our lives. There is a reason people say that health is wealth because no amount of money or material success can completely replace good health once it is lost. Being healthy is not only about being free from diseases or illnesses. It also means taking care of our bodies through the choices we make every day. As students, we often become busy with classes, assignments, examinations, projects, and other responsibilities. Because of this, taking care of our physical health can sometimes become something we forget about.
-            </p>
-
-            <p>
-                One of the most important parts of physical health is proper nutrition. Food provides the energy and nutrients our bodies need to grow, function, and remain healthy. According to the World Health Organization (WHO, 2026), a healthy diet should have adequacy, balance, moderation, and diversity. It recommends eating a variety of nutritious foods while limiting foods that contain excessive amounts of unhealthy fats, free sugars, and sodium. The organization also explains that healthy eating habits developed early in life can continue into adulthood.
-            </p>
-
-            <p>
-                For students, eating properly can affect how we function throughout the day. It can be difficult to concentrate in class or participate in activities when we are hungry or do not have enough energy. UNICEF (n.d.) identifies unhealthy diets and inactive lifestyles as some of the important health issues affecting adolescents today. This shows why developing healthier habits while we are young is important instead of waiting until we become adults.
-            </p>
-
-            <p>
-                We can start with simple habits such as eating regular meals, drinking enough water, and including fruits, vegetables, whole grains, and sources of protein in our diet. We do not have to completely remove our favorite foods from our lives. Instead, we can learn how to enjoy them in moderation while making nutritious food a regular part of our meals.
-            </p>
-
-            <p>
-                Physical activity is another important part of maintaining a healthy body. Many students spend several hours sitting in classrooms, studying, using computers, or scrolling through their phones. Although these activities are part of modern life, spending too much time being inactive can affect our health. According to the World Health Organization (WHO, 2024), regular physical activity can improve physical fitness, bone health, cognitive development, and mental health among children and adolescents.
-            </p>
-
-            <p>
-                The WHO recommends that children and adolescents get an average of at least 60 minutes of moderate-to-vigorous physical activity each day. However, exercise does not always have to mean going to a gym or following a difficult workout routine. Walking, dancing, playing sports, riding a bicycle, swimming, stretching, and even doing household chores can help us stay active. The important thing is to find activities that we enjoy and make movement part of our routine.
-            </p>
-
-            <p>
-                Sleep is another part of physical health that students sometimes ignore. Assignments, examinations, social media, games, and other responsibilities can cause us to stay awake later than we should. However, not getting enough sleep can affect our concentration, behavior, mental health, and academic performance. The Centers for Disease Control and Prevention (CDC, 2024) states that teenagers aged 13–18 generally need <strong>8 to 10 hours of sleep</strong> each day and that insufficient sleep can contribute to health and attention problems among students.
-            </p>
-
-            <p>
-                Personal hygiene is also important. Bathing regularly, washing our hands, brushing our teeth, wearing clean clothes, and keeping our surroundings clean are simple habits that can help protect us from illness. These actions may seem ordinary, but they are part of being responsible for our own health.
-            </p>
-
-            <p>
-                Taking care of our physical health does not mean that we have to be perfect. There will be days when we eat our favorite unhealthy food, fail to exercise, or stay up later than we should. What matters is that these choices do not become permanent habits. Health is built through consistency rather than perfection.
-            </p>
-
-            <p>
-                Our bodies allow us to study, work, spend time with people we love, and pursue our goals. Because of this, we should not wait until we become sick before we start taking care of ourselves. Eating properly, staying active, getting enough sleep, and practicing good hygiene are simple choices, but they can have lasting effects.
-            </p>
-
-            <p>
-                In the end, physical health is built through the habits we practice every day. The choices we make today may seem small, but they can influence our health as we grow older. Taking care of our bodies now is one of the simplest ways we can prepare ourselves for a healthier future.
-            </p>
-
-        </article>
-
-
-        <!-- HEALTH ARTICLE 2 -->
-
-        <article class="article reveal" id="health-mental">
-
-            <h3>More Than What We Can See</h3>
-
-            <p>
-                When people talk about health, they usually think about the physical body. We think about eating healthy food, exercising, avoiding sickness, and maintaining good hygiene. However, health is not only something that can be seen. A person can look perfectly healthy on the outside while struggling with stress, anxiety, sadness, or emotional exhaustion. This is why mental and emotional health should be treated as an important part of our overall well-being.
-            </p>
-
-            <p>
-                Students experience different kinds of pressure every day. We have assignments to finish, examinations to prepare for, projects to complete, and expectations that we try to meet. Aside from school, we may also experience family problems, friendship issues, financial concerns, and worries about the future. When several problems happen at the same time, it can become difficult to manage everything. Sometimes, we continue doing our responsibilities even when we are already mentally and emotionally tired.
-            </p>
-
-            <p>
-                According to the World Health Organization (WHO, 2025), <strong>one in seven adolescents between the ages of 10 and 19 experiences a mental health condition</strong>. Anxiety, depression, and behavioral disorders are among the common mental health concerns among adolescents. WHO also explains that adolescence is an important period for developing social and emotional habits, including healthy sleep patterns, regular exercise, coping skills, problem-solving skills, and the ability to manage emotions.
-            </p>
-
-            <p>
-                UNICEF (n.d.) similarly emphasizes that adolescence is an important period for developing and protecting mental well-being. It also identifies mental health conditions as a major concern for young people and explains that supportive families, adults, policies, and services can help adolescents reach their full potential.
-            </p>
-
-            <p>
-                These facts show why mental health should not be ignored. Feeling stressed, worried, sad, or overwhelmed does not automatically mean that someone is weak. Difficult emotions are a normal part of life. What matters is learning how to recognize these emotions and finding healthy ways to deal with them.
-            </p>
-
-            <p>
-                One way to protect our mental health is by giving ourselves time to rest. Students sometimes feel guilty for taking breaks because they believe they should always be productive. However, constantly working without giving ourselves time to recover can make us even more exhausted. Taking short breaks between school tasks, listening to music, spending time with people we care about, or doing hobbies can give our minds time to recover.
-            </p>
-
-            <p>
-                Physical activity can also support mental health. According to the World Health Organization (WHO, 2024), regular physical activity provides significant physical and mental health benefits. For children and adolescents, it can support cognitive development, mental health, and overall well-being. This means that taking care of our bodies can also contribute to taking care of our minds.
-            </p>
-
-            <p>
-                Another important part of mental health is having people we can trust. When problems become too difficult to handle alone, talking to a friend, family member, teacher, counselor, or another trusted person can provide support. We do not always need someone to immediately solve our problems. Sometimes, simply having someone listen can make us feel less alone.
-            </p>
-
-            <p>
-                We should also learn to recognize when other people may be struggling. Not everyone expresses their emotions openly. Someone who seems happy may be dealing with problems that we know nothing about. WHO (2025) explains that adolescents experiencing mental health conditions may also face social withdrawal, loneliness, educational difficulties, and stigma. Because of this, creating supportive environments at home, in school, and in the community is important.
-            </p>
-
-            <p>
-                Mental health can also affect education. Anxiety and depressive disorders can affect school attendance and schoolwork, according to WHO (2025). This shows that mental health and academic life are connected. A student cannot always be expected to perform at their best when they are struggling emotionally. Supporting students therefore means paying attention not only to their grades but also to their well-being.
-            </p>
-
-            <p>
-                Social media is another factor that can influence young people's well-being. We constantly see other people's achievements, appearances, relationships, and lifestyles online. UNICEF (n.d.) identifies social media as one of the factors that can affect adolescent development and well-being. Comparing ourselves to what we see online can make us feel as though we are not doing enough. However, social media usually shows only a small part of someone's life.
-            </p>
-
-            <p>
-                Taking care of our mental health does not mean that we will never experience stress or sadness. Life will always have difficult moments. Instead, it means learning how to handle those moments, knowing our limits, and understanding when we need support.
-            </p>
-
-            <p>
-                Health is more than what can be seen in a mirror. Sometimes, the struggles that require the most attention are the ones that cannot be seen at all. By taking mental health seriously, being kinder to ourselves, and supporting the people around us, we can create a healthier environment for everyone.
-            </p>
-
-        </article>
-
-
-        <!-- HEALTH ARTICLE 3 -->
-
-        <article class="article reveal" id="health-daily">
-
-            <h3>Health in Our Daily Lives</h3>
-
-            <p>
-                Good health does not usually come from one major decision. More often, it is built through the small choices we make every day. The food we eat, the amount of physical activity we get, how much we sleep, and how we handle stress can all affect our well-being. As students, developing healthy habits can be difficult because of our busy schedules, but taking care of ourselves should not be treated as something that only matters when we become sick.
-            </p>
-
-            <p>
-                One of the easiest places to begin is with our eating habits. Students often have busy mornings and may skip breakfast because they are late for school. Others may choose fast food because it is convenient or forget to eat properly because they are focused on schoolwork. However, our bodies need proper nutrition to function. The World Health Organization (WHO, 2026) explains that healthy diets are based on adequacy, balance, moderation, and diversity. It also recommends eating a variety of nutritious foods while limiting excessive amounts of sugar, sodium, and unhealthy fats.
-            </p>
-
-            <p>
-                UNICEF (n.d.) also identifies unhealthy diets as one of the important issues affecting adolescents. This is why developing healthy eating habits while we are young matters. We can start with simple choices such as eating regular meals, drinking enough water, including fruits and vegetables, and choosing nutritious foods whenever possible.
-            </p>
-
-            <p>
-                Physical activity is another habit that students should include in their daily routines. Schoolwork and technology can cause us to spend many hours sitting. We may study at a desk, use a computer for assignments, and then spend our free time scrolling through our phones. According to WHO (2024), regular physical activity can improve physical fitness, cognitive development, mental health, and overall well-being, while too much sedentary behavior can contribute to poorer health outcomes.
-            </p>
-
-            <p>
-                Being active does not necessarily mean spending money on a gym membership. Walking, playing sports, dancing, cycling, swimming, stretching, and doing household chores can all provide opportunities to move. The WHO also emphasizes that any amount of physical activity is better than none.
-            </p>
-
-            <p>
-                Sleep is another habit that students often sacrifice. Assignments, examinations, projects, social media, and entertainment can cause us to stay awake later than we should. When this becomes a regular habit, we may find ourselves feeling tired during class and struggling to concentrate. According to the CDC (2024), teenagers between 13 and 18 years old should generally get 8 to 10 hours of sleep per day. The CDC also notes that insufficient sleep among students is associated with problems involving attention, behavior, health, and academic performance.
-            </p>
-
-            <p>
-                Because of this, managing our time is part of maintaining our health. Finishing schoolwork is important, but constantly sacrificing sleep and rest can make it harder for us to function properly. Having a schedule, avoiding unnecessary distractions, and giving ourselves enough time to sleep can help create a healthier balance between school and personal life.
-            </p>
-
-            <p>
-                Our mental well-being should also be included in our daily routine. School can be stressful, especially when several deadlines and examinations happen at the same time. According to WHO (2025), adolescence is a crucial period for developing emotional and social habits, while pressure, adversity, and other factors can affect mental health. UNICEF (n.d.) also emphasizes the importance of supportive environments and access to appropriate information and services for adolescent health and well-being.
-            </p>
-
-            <p>
-                This is why students should learn to recognize when they need a break. Taking time to rest, listen to music, enjoy a hobby, spend time with friends or family, or simply step away from schoolwork for a while does not mean that we are avoiding our responsibilities. Sometimes, resting allows us to return to our responsibilities with more energy and a clearer mind.
-            </p>
-
-            <p>
-                Knowing when to ask for help is also an important healthy habit. Some students try to handle everything alone because they do not want to bother other people. However, asking for help does not mean that we are incapable. If we are struggling with schoolwork, stress, relationships, or personal problems, reaching out to someone we trust can make difficult situations easier to handle. WHO (2025) emphasizes the importance of supportive environments in families, schools, and communities for adolescent mental health.
-            </p>
-
-            <p>
-                We should also learn to listen to our bodies and recognize when something does not feel right. Taking health concerns seriously and seeking appropriate help when necessary is part of being responsible for ourselves. Health problems should not simply be ignored because we are busy. Our responsibilities will always be there, but our well-being also deserves attention.
-            </p>
-
-            <p>
-                Healthy habits do not need to be complicated. We do not have to completely change our lifestyle in one day. Small and consistent choices are often more realistic and easier to maintain. Eating properly, staying active, getting enough sleep, taking breaks, managing stress, and asking for help can gradually become part of our routine.
-            </p>
-
-            <p>
-                As students, we sometimes think that getting good grades is the most important thing we need to achieve. However, our health should not be sacrificed just to meet academic expectations. Education can prepare us for our future, but we also need a healthy body and mind to pursue the future we want.
-            </p>
-
-            <p>
-                In the end, a healthy lifestyle is built through everyday decisions. The choices we make today may seem small, but they can become habits that influence our future. Taking care of ourselves is not something we should postpone until we have more time. Our health is already a part of our lives, so it deserves our attention now.
-            </p>
-
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     EDUCATION
-===================================================== -->
-
-<section class="article-section" id="education">
-
-    <div class="container">
-
-        <div class="article-header reveal">
-
-            <span class="category">Education</span>
-
-            <h2>
-                Knowledge is Free and Collectable,
-                but Education is Not
-            </h2>
-
-            <p>
-                Education helps us gain knowledge, discover opportunities,
-                develop critical thinking, and prepare for a changing world.
-            </p>
-
-        </div>
-
-
-        <!-- EDUCATION ARTICLE 1 -->
-
-        <article class="article reveal" id="education-knowledge">
-
-            <h3>Knowledge is Free and Collectable, but Education is Not</h3>
-
-            <p>
-                Education is one of the main ways people gain knowledge, develop skills, and understand the world around them. It is more than simply memorizing information for an examination. Education is the process of learning ideas, developing abilities, understanding values, and using what we learn in real situations. Knowledge, on the other hand, is what we gain from the lessons and experiences we encounter throughout our lives. In simple terms, education gives us opportunities to learn, while knowledge is what we carry with us from those experiences.
-            </p>
-
-            <p>
-                Schools are one of the most common places where education takes place. Students spend years attending classes, completing activities, reading books, conducting research, and learning from teachers. However, education does not begin and end inside a classroom. The United Nations Educational, Scientific and Cultural Organization (UNESCO, n.d.) describes education as a fundamental human right and emphasizes its importance in building peaceful, sustainable, and inclusive societies. This shows that education is not simply a requirement for graduating from school. It is something that can influence a person's opportunities and participation in society.
-            </p>
-
-            <p>
-                Unfortunately, not everyone has equal access to education. Some children are unable to attend school because of poverty, conflict, distance, discrimination, or other circumstances. According to UNICEF (n.d.), millions of children and young people around the world remain out of school, showing that access to education continues to be a major challenge. When a child cannot attend school, it does not mean that the child is incapable of learning. It means that the opportunity to receive formal education may not be equally available to them.
-            </p>
-
-            <p>
-                Learning can happen in different ways. A person can learn by reading books, observing other people, asking questions, practicing a skill, or experiencing something personally. The Stanford Encyclopedia of Philosophy (2004) explains the distinction between Rationalism and Empiricism in the history of philosophy. Rationalism gives an important role to reason and knowledge derived through thought, while Empiricism emphasizes experience and observation as sources of knowledge. These ideas show that people do not learn in only one way. We use both reasoning and experience to understand the world.
-            </p>
-
-            <p>
-                Even basic activities involve learning. A child learns how to walk, communicate, socialize, count, read, write, follow rules, and understand values. These may seem like ordinary abilities, but they provide a foundation for more complicated learning later in life. UNESCO (n.d.) explains that education supports the development of knowledge, skills, values, and attitudes that allow people to contribute to society. In other words, education is not only about what we know but also about what we can do with what we know.
-            </p>
-
-            <p>
-                Curiosity is another important part of education. People naturally ask questions about the world around them. A child may ask why the sky changes color, how plants grow, why certain objects are dangerous, or how machines work. These questions may appear simple, but they represent the beginning of learning. Education gives people opportunities to explore these questions instead of simply accepting that they will never know the answers.
-            </p>
-
-            <p>
-                Reading is one way people can continue learning even outside formal education. Books, articles, research, and other reliable materials allow people to encounter ideas that they may never experience personally. The internet has also made information more accessible, although people must learn how to distinguish reliable information from misinformation.
-            </p>
-
-            <p>
-                Education also helps people understand that not everything they encounter is automatically true. Learning how to analyze information, compare sources, ask questions, and use evidence is especially important in a world where information can spread quickly. The ability to think critically can help people make better decisions instead of simply believing everything they see or hear.
-            </p>
-
-            <p>
-                Education therefore provides more than facts. It gives people tools for understanding those facts. It allows us to ask questions, examine evidence, learn from experience, and develop our own understanding.
-            </p>
-
-            <p>
-                The world continues to change, and the knowledge people need also changes with it. New technologies, discoveries, careers, and problems continue to appear. Because of this, learning should not stop when a person leaves school. Education can give us the foundation, but curiosity encourages us to continue building on it.
-            </p>
-
-            <p>
-                In the end, education is not simply about collecting information. It is about developing the ability to understand, question, and apply knowledge. Whether we learn through a teacher, a book, an experience, or our own curiosity, every lesson can contribute to who we become. Education gives us the opportunity to know more about the world, but more importantly, it teaches us how to continue learning from it.
-            </p>
-
-        </article>
-
-
-        <!-- EDUCATION ARTICLE 2 -->
-
-        <article class="article reveal" id="education-opportunity">
-
-            <h3>Education and Opportunity</h3>
-
-            <p>
-                Education is often described as a basic part of growing up, but not everyone receives the same opportunities to experience it. For many students, going to school is a normal part of everyday life. We wake up, attend classes, listen to teachers, complete assignments, and eventually move on to the next grade level. Because this routine is so common, it can be easy to forget that there are children who do not have the same opportunity. Education therefore involves not only learning but also access to opportunities that can influence a person's future.
-            </p>
-
-            <p>
-                Schools provide a structured environment where students can develop knowledge and skills. Teachers guide students through different subjects, while classmates provide opportunities to communicate and work with others. Education can also help young people develop values, discipline, problem-solving abilities, and other skills that can be useful beyond school. UNESCO (n.d.) recognizes education as a fundamental human right and emphasizes that inclusive and equitable quality education is important for individuals and societies.
-            </p>
-
-            <p>
-                However, access to education is not always equal. Poverty remains one of the factors that can prevent children from receiving education. Some families may struggle to afford school supplies, transportation, uniforms, technology, or other expenses connected to schooling. UNICEF (n.d.) explains that children living in poverty are among those who face greater barriers to education. Other children may experience barriers related to conflict, disability, discrimination, location, or social circumstances.
-            </p>
-
-            <p>
-                This makes education more than simply a personal responsibility. A student cannot be expected to succeed in school if they are not given the opportunity to attend or if the conditions around them make education difficult to access. When society invests in education, it is also investing in the opportunities available to future generations.
-            </p>
-
-            <p>
-                Programs that help children receive education can therefore make an important difference. One example is Project Malasakit, which works to support communities and children through different forms of assistance. According to Project Malasakit (2022), its initiatives include helping provide opportunities and support to people and communities in need. Programs like these show how individuals and organizations can contribute to making education more accessible.
-            </p>
-
-            <p>
-                Education can also provide people with opportunities beyond what they currently know. A child may enter school with only a basic understanding of the world but eventually discover an interest in science, art, law, business, technology, or another field. Without exposure to different subjects and ideas, a person may never discover certain interests or abilities.
-            </p>
-
-            <p>
-                This is one reason curiosity is important. Students are naturally exposed to questions as they learn. Sometimes, a lesson in school can lead to another question that has nothing to do with the original topic. A student learning about plants may become interested in biology. Someone studying history may become interested in politics. A student learning mathematics may become interested in engineering. Education gives people the chance to discover these interests.
-            </p>
-
-            <p>
-                Learning also happens outside school. The Stanford Encyclopedia of Philosophy (2004) explains that Rationalism and Empiricism represent different approaches to understanding knowledge. Rationalism emphasizes reason, while Empiricism gives importance to experience and observation. Both ideas remind us that people can learn through thinking and through experiencing the world around them.
-            </p>
-
-            <p>
-                This is important because formal education is not the only form of learning. A person can learn skills from their family, community, work, books, personal experiences, or other people. Someone who cannot attend school should not be considered incapable of learning. At the same time, recognizing the value of learning outside school should not become an excuse for ignoring the importance of making formal education accessible.
-            </p>
-
-            <p>
-                Education can also influence a person's ability to participate in society. UNESCO (n.d.) explains that education can contribute to social and economic development and help individuals develop the knowledge and skills needed to participate in their communities. A person who receives quality education may have more opportunities to pursue further studies, employment, or other goals.
-            </p>
-
-            <p>
-                This is why education should not be viewed simply as a long process that students are forced to complete. It is easy for students to complain about school because of homework, examinations, deadlines, and long hours. However, these difficulties are only one part of a much larger purpose. Education gives people opportunities to discover what they are capable of doing.
-            </p>
-
-            <p>
-                Not every student will have the same interests, talents, or goals. Some may want to become doctors, lawyers, teachers, engineers, artists, entrepreneurs, or something completely different. Education does not guarantee that every person will achieve their dream, but it can provide knowledge and skills that help them pursue it.
-            </p>
-
-            <p>
-                In the end, education should be understood as both a right and an opportunity. Every child deserves the chance to learn, regardless of their financial situation or background. Education can open doors that a person may not even know exist yet. By making education more accessible, society gives more people the chance to discover their abilities, develop their potential, and decide what they want their future to become.
-            </p>
-
-        </article>
-
-
-        <!-- EDUCATION ARTICLE 3 -->
-
-        <article class="article reveal" id="education-adaptation">
-
-            <h3>Education and Adaptation</h3>
-
-            <p>
-                The world is constantly changing. New technologies are being developed, scientific discoveries are being made, jobs are changing, and societies continue to develop. Because of these changes, people cannot simply depend on the knowledge that was available in the past. We need to continue learning so that we can understand and adapt to the world around us. This is one of the reasons education remains important even when humanity has already discovered and developed so much.
-            </p>
-
-            <p>
-                Sometimes, students question why they need to spend so many years in school. It can feel like a long process filled with assignments, examinations, projects, and deadlines. Some may wonder why they need to study things they believe they will never use. However, education is not only about memorizing information that will appear on a test. It is also about developing the ability to understand new information and respond to situations we have never experienced before.
-            </p>
-
-            <p>
-                UNESCO (n.d.) explains that education develops knowledge, skills, values, and attitudes that help individuals participate in society. These abilities become especially important when the world changes. A person cannot know exactly what challenges they will face years from now, but education can help them develop the ability to learn and adapt.
-            </p>
-
-            <p>
-                Technology is one clear example of how quickly the world can change. New devices, software, artificial intelligence, and online platforms continue to develop. Jobs that did not exist decades ago now exist, while some tasks that once required human workers can be performed using technology. The World Economic Forum (2025) emphasizes that technological change, including developments in artificial intelligence, is expected to significantly influence the skills needed in the workplace. This means that people need to continue developing their knowledge instead of assuming that what they learn once will always be enough.
-            </p>
-
-            <p>
-                Education also helps people understand risks. In everyday life, we encounter things that can be dangerous if we do not understand them. We learn about chemicals, electricity, diseases, natural disasters, technology, and other potential risks through education and experience. Without knowledge, curiosity can sometimes lead people to make unsafe decisions. Education gives us information that can help us understand the consequences of our actions.
-            </p>
-
-            <p>
-                Curiosity plays an important role in this process. People naturally want to know how and why things work. A child may ask why the sky is blue, how a phone connects to the internet, or why certain medicines help people recover from illness. These questions may lead to larger areas of study. Education provides opportunities for people to explore their curiosity instead of simply ignoring it.
-            </p>
-
-            <p>
-                The process of learning also involves both reason and experience. The Stanford Encyclopedia of Philosophy (2004) explains the distinction between Rationalism and Empiricism. Rationalism places greater emphasis on reason as a source of knowledge, while Empiricism emphasizes experience and observation. In real life, people often use both. We can learn a concept from a book or teacher and then understand it more deeply when we experience or apply it ourselves.
-            </p>
-
-            <p>
-                This is why education should not stop when formal schooling ends. A person may graduate from school, but they will continue to encounter new situations throughout life. They may start a job, meet new people, learn new technology, face unexpected problems, or discover interests they never had before. Continuing to learn allows people to adapt instead of becoming completely dependent on what they already know.
-            </p>
-
-            <p>
-                Education can also help people become more critical when dealing with information. The internet gives us access to an enormous amount of information, but not everything online is accurate. A person who knows how to evaluate evidence, compare sources, and question claims is better prepared to identify unreliable information. UNESCO (n.d.) emphasizes the importance of education in developing skills and knowledge that allow people to participate meaningfully in society.
-            </p>
-
-            <p>
-                The importance of education can also be connected to Maslow's Hierarchy of Needs. Maslow's theory suggests that people have different levels of needs, beginning with basic physiological needs and extending toward safety, belonging, esteem, and self-actualization. Simply having food, water, and shelter does not represent the entirety of human development. As explained by Simply Psychology (2026), Maslow's hierarchy includes higher-level psychological needs and self-actualization, which involve reaching one's potential and developing as a person.
-            </p>
-
-            <p>
-                This helps explain why education matters beyond basic survival. Humans do not only want to survive. We also want to understand, create, discover, improve, and accomplish things. Education can give people tools to develop their abilities and pursue goals that go beyond their basic needs.
-            </p>
-
-            <p>
-                The world will continue changing whether we are ready for it or not. New problems will appear, new discoveries will be made, and new opportunities will develop. We cannot predict everything that the future will bring, but we can prepare ourselves to keep learning.
-            </p>
-
-            <p>
-                Education therefore gives people more than knowledge for the present. It gives them the ability to gain knowledge for the future. It teaches us to ask questions, understand information, solve problems, and adapt when circumstances change.
-            </p>
-
-            <p>
-                In the end, education remains important because the world is never finished changing. What we know today may not be enough for the problems of tomorrow. By continuing to learn, we give ourselves a better chance of understanding the world, responding to change, and discovering what we are capable of becoming.
-            </p>
-
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     ENVIRONMENT
-===================================================== -->
-
-<section class="article-section" id="environment">
-
-    <div class="container">
-
-        <div class="article-header reveal">
-
-            <span class="category">Environment</span>
-
-            <h2>
-                How Simple Habits Can Protect
-                Our Everyday World
-            </h2>
-
-            <p>
-                Environmental responsibility can begin with the everyday
-                choices we make at home, at school, and in our communities.
-            </p>
-
-        </div>
-
-
-        <!-- ENVIRONMENT ARTICLE 1 -->
-
-        <article class="article reveal" id="environment-impact">
-
-            <h3>Our Everyday Impact</h3>
-
-            <p>
-                The environment is connected to almost everything we do. The air we breathe, the water we drink, the food we eat, and the places where we live all depend on a healthy planet. Because of this, protecting the environment should not only be the responsibility of governments, organizations, or environmental groups. It should also be part of our everyday lives. As students, we may not have the power to make major environmental policies, but the choices we make every day can still contribute to the condition of our surroundings.
-            </p>
-
-            <p>
-                One of the simplest ways to help the environment is to become more aware of what we buy and what we throw away. Modern life has made it very easy to purchase things whenever we want them. We can order food, clothes, school supplies, and other products with only a few clicks. However, the convenience of buying things can also encourage us to consume more than we actually need.
-            </p>
-
-            <p>
-                The things we buy require natural resources to produce. Materials need to be collected, processed, transported, and eventually disposed of. When we constantly purchase unnecessary products and throw them away after a short period of time, we contribute to the growing amount of waste. According to the United Nations Environment Programme (UNEP, 2025), reducing waste and moving toward more sustainable patterns of consumption can help address global pollution.
-            </p>
-
-            <p>
-                This does not mean that people have to stop buying things completely. Instead, we can become more responsible consumers. Before buying something, we can ask ourselves whether we actually need it or whether we simply want it because it is popular. We can choose products that can be reused instead of disposable ones. Bringing a reusable water bottle, using reusable bags, reusing containers, and donating clothes that we no longer use are simple examples of responsible consumption.
-            </p>
-
-            <p>
-                Fast fashion is another issue worth considering. Trends change quickly, and social media often encourages people to constantly buy new clothes to keep up with them. While buying affordable clothes may seem harmless, producing and disposing of large amounts of clothing can contribute to environmental problems. Instead of immediately throwing away clothes that are no longer trendy, we can reuse, donate, repair, or give them to someone who may need them.
-            </p>
-
-            <p>
-                Plastic waste is also a common problem in our daily lives. Single-use plastics are convenient because they are easy to use and throw away, but their convenience can come with environmental consequences. As students, we can reduce our dependence on them by bringing reusable utensils, containers, and water bottles whenever possible. These actions may seem too small to matter, but they become more significant when many people practice them consistently.
-            </p>
-
-            <p>
-                Our habits at school can also affect the environment. Students use paper, electricity, food packaging, and other materials every day. We can avoid unnecessary printing, use both sides of paper, dispose of garbage properly, and reuse materials whenever possible. Schools can also encourage recycling programs, clean-up activities, and environmental campaigns that allow students to participate directly in protecting their surroundings.
-            </p>
-
-            <p>
-                It is easy to believe that one person's actions are too small to make a difference. However, environmental problems are often created by millions of small actions happening repeatedly. In the same way, positive change can also begin with small choices that are repeated by many people.
-            </p>
-
-            <p>
-                Protecting the environment does not require us to completely change our lifestyle overnight. It begins with being more aware of our choices. Every time we reuse something instead of throwing it away, refuse unnecessary plastic, or think carefully before buying something, we are making a small decision that can contribute to a bigger change.
-            </p>
-
-            <p>
-                The environment is not something separate from our lives. It provides the resources we need to live comfortably and safely. By becoming more responsible about what we consume and what we throw away, we are not only reducing waste but also protecting the resources that future generations will need. Our everyday choices may seem ordinary, but together, they can shape the kind of world we leave behind.
-            </p>
-
-        </article>
-
-
-        <!-- ENVIRONMENT ARTICLE 2 -->
-
-        <article class="article reveal" id="environment-responsibly">
-
-            <h3>Using What We Have Responsibly</h3>
-
-            <p>
-                The environment provides us with many things that we depend on every day. We need water to drink, electricity to power our homes and schools, and transportation to help us travel from one place to another. Because these resources are such a normal part of our lives, it can be easy to forget that they are limited and that using them carelessly can affect the environment. Learning how to use resources responsibly is therefore an important part of protecting the planet.
-            </p>
-
-            <p>
-                Water is one of the most valuable resources we have. We use it for drinking, cooking, cleaning, bathing, and many other activities. However, because water comes easily from our faucets, we may not think twice about how much we use. Leaving the faucet running while brushing our teeth, taking unnecessarily long showers, or using excessive amounts of water when cleaning can lead to unnecessary waste.
-            </p>
-
-            <p>
-                Saving water does not require major changes. We can turn off the faucet when we are not using it, take shorter showers, fix leaking pipes or faucets, and avoid using more water than necessary. These habits may seem simple, but they can help reduce waste when practiced consistently.
-            </p>
-
-            <p>
-                Energy is another resource that we often use without thinking about it. Lights, fans, air conditioners, computers, televisions, and other appliances require electricity. The more energy we use, the more resources may be needed to produce it. The Intergovernmental Panel on Climate Change (IPCC, 2023) emphasizes the importance of reducing greenhouse gas emissions and improving energy efficiency as part of addressing climate change.
-            </p>
-
-            <p>
-                Students can help conserve energy through simple actions. Turning off lights when leaving a room, switching off computers after finishing schoolwork, unplugging devices when they are no longer needed, and using natural light when possible can reduce unnecessary electricity use. These habits can also encourage us to become more aware of how much energy we consume.
-            </p>
-
-            <p>
-                Transportation is another part of everyday life that affects the environment. Many vehicles depend on fossil fuels, which contribute to air pollution and greenhouse gas emissions. Because students travel to school, visit friends, attend activities, and go to different places, transportation can become part of our environmental impact.
-            </p>
-
-            <p>
-                Whenever it is practical and safe, walking or riding a bicycle can be an environmentally friendly option for shorter distances. These choices also provide physical activity. For longer distances, public transportation can reduce the number of individual vehicles on the road. Carpooling with family members or friends can also help because several people can travel together instead of using separate vehicles.
-            </p>
-
-            <p>
-                Of course, not everyone has the same transportation options. Some students live far from school, while others may not have access to public transportation or safe areas for walking or cycling. Environmental responsibility should therefore not be about judging people for how they travel. Instead, it should be about making better choices whenever those choices are possible.
-            </p>
-
-            <p>
-                The way we use energy and water can also be connected to our habits at school. Classrooms often use lights, fans, air conditioners, computers, and other equipment. Students can help by making sure these are turned off when they are not needed. Schools can also promote energy-saving practices and teach students why resource conservation matters.
-            </p>
-
-            <p>
-                Sometimes, environmental problems seem too large for individual actions to matter. Climate change, pollution, and resource depletion are global issues that require cooperation between governments, businesses, communities, and individuals. However, large changes are often supported by smaller changes in people's habits.
-            </p>
-
-            <p>
-                Using resources responsibly is not about making life uncomfortable. It is about avoiding unnecessary waste. We can still use electricity, water, and transportation while being more conscious of how we use them. The goal is not to stop using resources but to understand their value.
-            </p>
-
-            <p>
-                The resources we have today will also be needed by people in the future. If we learn to use them carefully now, we can help protect the environment while still meeting our needs. Saving water, conserving electricity, and making thoughtful transportation choices are simple actions, but they show that protecting the environment can begin with how we live every day.
-            </p>
-
-        </article>
-
-
-        <!-- ENVIRONMENT ARTICLE 3 -->
-
-        <article class="article reveal" id="environment-action">
-
-            <h3>From Concern to Action</h3>
-
-            <p>
-                Environmental problems have become impossible to ignore. News about climate change, pollution, deforestation, extreme weather, and the loss of wildlife appears regularly on our screens. As students, we are growing up in a time when the future of the environment is something that we constantly hear about. While being aware of these problems is important, constantly thinking about them can also make us feel worried and powerless.
-            </p>
-
-            <p>
-                Young people already experience pressure from school, family expectations, friendships, and concerns about their future. Adding environmental problems to these worries can sometimes feel overwhelming. The United Nations Educational, Scientific and Cultural Organization (UNESCO, 2024) has identified eco-anxiety as a growing concern among young people. Eco-anxiety refers to feelings of worry, fear, or distress related to environmental problems and the future of the planet.
-            </p>
-
-            <p>
-                It is understandable to feel concerned when environmental problems seem so large. Climate change and pollution cannot be solved by one student alone. We may look at the scale of these issues and think that whatever we do will not matter. However, allowing ourselves to feel completely helpless does not solve the problem either. Instead, we can use our concern as a reason to become involved in positive actions.
-            </p>
-
-            <p>
-                One way to do this is by participating in environmental activities in our schools and communities. Joining clean-up drives, planting trees, helping with recycling programs, or participating in environmental campaigns can give students the opportunity to contribute directly. These activities may not solve every environmental problem, but they allow us to become part of the solution instead of simply worrying about the problem.
-            </p>
-
-            <p>
-                Talking about environmental concerns can also help. Students can discuss environmental issues with their classmates, teachers, families, and communities. Sharing information can encourage other people to become more aware of their own habits. Sometimes, one person's decision to reduce plastic use, conserve water, or properly dispose of waste can influence the people around them to do the same.
-            </p>
-
-            <p>
-                Spending time in nature is another way to develop a stronger connection with the environment. Many students spend a large part of their day indoors, moving between classrooms, houses, and screens. Phones and computers are useful, especially for education and communication, but constantly being connected to technology can make us forget about the natural world around us.
-            </p>
-
-            <p>
-                Simply spending time outside can change how we see the environment. Walking in a park, visiting a beach, taking care of plants, or helping in a school garden can remind us that nature is not just something we read about in textbooks. It is something we are physically connected to. When we appreciate the environment, we may become more motivated to protect it.
-            </p>
-
-            <p>
-                Students can also make small environmental choices in their daily routines. We can bring reusable bottles and bags, reduce unnecessary waste, save water, turn off lights and appliances when they are not needed, and properly dispose of our garbage. These actions may seem insignificant when compared to global environmental problems, but they can become meaningful when practiced by many people.
-            </p>
-
-            <p>
-                Environmental protection also requires cooperation. Individuals cannot solve global problems alone. Governments need effective policies, businesses need to consider sustainable practices, schools need to educate students, and communities need to work together. Young people also have an important role because today's students will become tomorrow's professionals, voters, leaders, scientists, teachers, and decision-makers.
-            </p>
-
-            <p>
-                Our generation will eventually inherit the environmental conditions created by the choices made today. This can be frightening, but it can also be a reason to take action. We should not allow fear about the future to prevent us from doing something in the present.
-            </p>
-
-            <p>
-                It is also important to understand that caring about the environment does not mean constantly worrying about it. We can care while also giving ourselves time to rest. We can stay informed without allowing environmental news to consume all of our attention. We can recognize the seriousness of environmental problems while still appreciating the progress that people and communities are making.
-            </p>
-
-            <p>
-                The environment needs more than awareness. It needs action, cooperation, and consistent effort. As students, our actions may seem small, but they can influence the people around us and become part of larger movements for change.
-            </p>
-
-            <p>
-                We cannot personally repair every damaged ecosystem or solve every environmental problem. However, we can choose what we do with the part of the world that is within our reach. By turning concern into action, spending time in nature, making responsible choices, and encouraging others to participate, we can become part of the solution. The future of the planet may be uncertain, but that does not mean we are powerless. We may not be able to change everything, but we can still change something. Sometimes, that is where meaningful change begins.
-            </p>
-
-        </article>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CONTRIBUTORS
-===================================================== -->
-
-<section class="contributors" id="contributors">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <small>The People Behind the Work</small>
-
-            <h2>Contributors</h2>
-
-            <p>
-                The students and contributors who helped develop
-                the initiative and its collection of essays.
-            </p>
-
-        </div>
-
-
-        <div class="contributors-grid">
-
-            <!--
-                Replace the image filenames below with the exact
-                filenames of your existing photos if necessary.
-            -->
-
-            <div class="person reveal">
-
-                <img
-                    src="florie.jpg"
-                    alt="Florie"
-                    class="person-photo"
-                >
-
-                <h3>Florie</h3>
-
-                <p>Contributor</p>
-
-            </div>
-
-
-            <div class="person reveal">
-
-                <img
-                    src="jyllana.jpg"
-                    alt="Jyllana"
-                    class="person-photo"
-                >
-
-                <h3>Jyllana</h3>
-
-                <p>Contributor</p>
-
-            </div>
-
-
-            <div class="person reveal">
-
-                <img
-                    src="freianne.jpg"
-                    alt="Freianne"
-                    class="person-photo"
-                >
-
-                <h3>Freianne</h3>
-
-                <p>Contributor</p>
-
-            </div>
-
-
-            <div class="person reveal">
-
-                <img
-                    src="philip.jpg"
-                    alt="Philip"
-                    class="person-photo"
-                >
-
-                <h3>Philip</h3>
-
-                <p>Contributor</p>
-
-            </div>
-
-
-            <div class="person reveal">
-
-                <img
-                    src="ralph.jpg"
-                    alt="Ralph"
-                    class="person-photo"
-                >
-
-                <h3>Ralph</h3>
-
-                <p>Contributor</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     REFERENCES
-===================================================== -->
-
-<section class="references" id="references">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <small>Sources & Research</small>
-
-            <h2>References</h2>
-
-            <p>
-                Sources used to support the information presented
-                throughout the initiative.
-            </p>
-
-        </div>
-
-
-        <div class="reference-list reveal">
-
-            <p>
-                Centers for Disease Control and Prevention.
-                (2024, July 2).
-                <em>Sleep and health.</em>
-            </p>
-
-            <p>
-                UNICEF.
-                (n.d.).
-                <em>Adolescent health and well-being.</em>
-            </p>
-
-            <p>
-                World Health Organization.
-                (2024, June 26).
-                <em>Physical activity.</em>
-            </p>
-
-            <p>
-                World Health Organization.
-                (2026, January 26).
-                <em>Healthy diet.</em>
-            </p>
-
-            <p>
-                World Health Organization.
-                (2025, September 1).
-                <em>Mental health of adolescents.</em>
-            </p>
-
-            <p>
-                Project Malasakit.
-                (2022).
-                <em>About Malasakit.</em>
-            </p>
-
-            <p>
-                Stanford Encyclopedia of Philosophy.
-                (2004).
-                <em>Rationalism vs. empiricism.</em>
-            </p>
-
-            <p>
-                UNESCO.
-                (n.d.).
-                <em>Education transforms lives.</em>
-            </p>
-
-            <p>
-                UNICEF.
-                (n.d.).
-                <em>Education.</em>
-            </p>
-
-            <p>
-                Intergovernmental Panel on Climate Change.
-                (2023).
-                <em>
-                    Climate change 2023: Synthesis report.
-                    Contribution of Working Groups I, II and III
-                    to the Sixth Assessment Report of the IPCC.
-                </em>
-            </p>
-
-            <p>
-                United Nations Educational, Scientific and Cultural Organization.
-                (2024).
-                <em>
-                    Youth and climate change:
-                    Navigating eco-anxiety through education.
-                </em>
-            </p>
-
-            <p>
-                United Nations Environment Programme.
-                (2023).
-                <em>
-                    Turning off the tap:
-                    How the world can end plastic pollution
-                    and create a circular economy.
-                </em>
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    <p>
-        <strong>The Initiative for Human and Environmental Wellbeing</strong>
-    </p>
-
-    <p>
-        Health • Education • Environment
-    </p>
-
-    <p style="margin-top: 12px;">
-        © 2026 The Initiative. All rights reserved.
-    </p>
-
-</footer>
-
-
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
-<script>
-
-    /* MOBILE MENU */
-
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
-
-    menuBtn.addEventListener("click", () => {
-        navLinks.classList.toggle("active");
-    });
-
-
-    /* CLOSE MOBILE MENU AFTER CLICK */
-
-    document.querySelectorAll(".nav-links a").forEach(link => {
-
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("active");
-        });
-
-    });
-
-
-    /* REVEAL ANIMATIONS */
-
-    const revealElements = document.querySelectorAll(".reveal");
-
-    const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add("visible");
-
-                    observer.unobserve(entry.target);
-
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.12
-        }
-    );
-
-
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
-
-
-    /* ACTIVE NAVIGATION */
-
-    const sections = document.querySelectorAll(
-        "section[id]"
-    );
-
-    const navItems = document.querySelectorAll(
-        ".nav-links a"
-    );
-
-    window.addEventListener("scroll", () => {
-
-        let current = "";
-
-        sections.forEach(section => {
-
-            const sectionTop = section.offsetTop - 150;
-
-            if (window.scrollY >= sectionTop) {
-                current = section.getAttribute("id");
-            }
-
-        });
-
-        navItems.forEach(item => {
-
-            item.classList.remove("active");
-
-            if (
-                item.getAttribute("href") === "#" + current
-            ) {
-                item.classList.add("active");
-            }
-
-        });
-
-    });
-
-</script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
