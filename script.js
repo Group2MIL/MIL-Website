@@ -1,169 +1,250 @@
 /* =========================================================
-   MOBILE MENU
+   THE INITIATIVE FOR HUMAN & ENVIRONMENTAL WELLBEING
+   JAVASCRIPT
 ========================================================= */
 
-const menuToggle = document.getElementById("menuToggle");
-const mainNav = document.getElementById("mainNav");
+document.addEventListener("DOMContentLoaded", () => {
 
-menuToggle.addEventListener("click", () => {
-    mainNav.classList.toggle("active");
-});
+    /* =====================================================
+       NAVBAR SCROLL EFFECT
+    ===================================================== */
 
+    const navbar = document.getElementById("navbar");
 
-/* Close mobile menu after clicking a link */
+    function updateNavbar() {
 
-const navLinks = document.querySelectorAll("#mainNav a");
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
 
-navLinks.forEach(link => {
-
-    link.addEventListener("click", () => {
-        mainNav.classList.remove("active");
-    });
-
-});
-
-
-/* =========================================================
-   BACK TO TOP
-========================================================= */
-
-const backToTop = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 600) {
-        backToTop.classList.add("show");
-    } else {
-        backToTop.classList.remove("show");
     }
 
-});
+    window.addEventListener("scroll", updateNavbar);
 
-backToTop.addEventListener("click", () => {
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-});
+    updateNavbar();
 
 
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
 
-const revealElements = document.querySelectorAll(
-    ".author-card, .topic-directory, .essay-paper, .rationale-card, .reference-group, .about-grid"
-);
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
 
-const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
+    if (menuToggle && navLinks) {
 
-        entries.forEach(entry => {
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
 
-            if (entry.isIntersecting) {
+    }
 
-                entry.target.classList.add("revealed");
 
-                observer.unobserve(entry.target);
+    /* =====================================================
+       CLOSE MOBILE MENU AFTER CLICKING A LINK
+    ===================================================== */
 
-            }
+    const navigationLinks = document.querySelectorAll(
+        ".nav-links a"
+    );
+
+    navigationLinks.forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navLinks.classList.remove("active");
 
         });
 
-    },
-    {
-        threshold: 0.08
-    }
-);
+    });
 
 
-revealElements.forEach(element => {
+    /* =====================================================
+       REVEAL ON SCROLL
+    ===================================================== */
 
-    element.classList.add("reveal");
+    const revealElements =
+        document.querySelectorAll(".reveal");
 
-    revealObserver.observe(element);
+    const revealObserver = new IntersectionObserver(
+        entries => {
 
-});
+            entries.forEach(entry => {
 
+                if (entry.isIntersecting) {
 
-/* =========================================================
-   ACTIVE ESSAY LINK
-========================================================= */
+                    entry.target.classList.add("visible");
 
-const essaySections = document.querySelectorAll(".essay-section");
-const essayLinks = document.querySelectorAll(".essay-link");
+                    revealObserver.unobserve(entry.target);
 
-const essayObserver = new IntersectionObserver(
-    entries => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                essayLinks.forEach(link => {
-                    link.classList.remove("active");
-                });
-
-                const activeLink = document.querySelector(
-                    `.essay-link[href="#${entry.target.id}"]`
-                );
-
-                if (activeLink) {
-                    activeLink.classList.add("active");
                 }
 
+            });
+
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+
+
+    /* =====================================================
+       SMOOTH SCROLL WITH NAVBAR OFFSET
+    ===================================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", function(event) {
+
+            const targetId =
+                this.getAttribute("href");
+
+            if (
+                !targetId ||
+                targetId === "#"
+            ) {
+                return;
+            }
+
+            const target =
+                document.querySelector(targetId);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const navbarHeight =
+                navbar.offsetHeight;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                navbarHeight -
+                15;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
+
+        });
+
+    });
+
+
+    /* =====================================================
+       ACTIVE NAVIGATION
+    ===================================================== */
+
+    const sections = document.querySelectorAll(
+        "section[id]"
+    );
+
+    const navAnchors = document.querySelectorAll(
+        ".nav-links > a"
+    );
+
+    function updateActiveNavigation() {
+
+        let currentSection = "";
+
+        sections.forEach(section => {
+
+            const sectionTop =
+                section.offsetTop -
+                navbar.offsetHeight -
+                150;
+
+            const sectionBottom =
+                sectionTop +
+                section.offsetHeight;
+
+            if (
+                window.scrollY >= sectionTop &&
+                window.scrollY < sectionBottom
+            ) {
+                currentSection = section.id;
             }
 
         });
 
-    },
-    {
-        threshold: 0.35
-    }
-);
+        navAnchors.forEach(anchor => {
 
+            anchor.classList.remove("active");
 
-essaySections.forEach(section => {
-    essayObserver.observe(section);
-});
+            const href =
+                anchor.getAttribute("href");
 
+            if (href === "#" + currentSection) {
+                anchor.classList.add("active");
+            }
 
-/* =========================================================
-   SMOOTH ANCHOR OFFSET
-========================================================= */
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener("click", function(event) {
-
-        const targetId = this.getAttribute("href");
-
-        if (targetId === "#") {
-            return;
-        }
-
-        const target = document.querySelector(targetId);
-
-        if (!target) {
-            return;
-        }
-
-        event.preventDefault();
-
-        const navbarHeight = document.querySelector(".navbar").offsetHeight;
-
-        const targetPosition =
-            target.getBoundingClientRect().top +
-            window.scrollY -
-            navbarHeight -
-            15;
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth"
         });
+
+    }
+
+    window.addEventListener(
+        "scroll",
+        updateActiveNavigation
+    );
+
+    updateActiveNavigation();
+
+
+    /* =====================================================
+       ESSAY CARD STAGGER ANIMATION
+    ===================================================== */
+
+    const cards =
+        document.querySelectorAll(
+            ".essay-card, .person-card, .topic-link-group"
+        );
+
+    cards.forEach((card, index) => {
+
+        card.style.transitionDelay =
+            `${(index % 3) * 0.08}s`;
+
+    });
+
+
+    /* =====================================================
+       IMAGE ERROR HANDLING
+    ===================================================== */
+
+    document.querySelectorAll("img").forEach(image => {
+
+        image.addEventListener("error", () => {
+
+            image.style.background =
+                "linear-gradient(135deg, #d9dfd7, #b7c5b9)";
+
+            image.alt =
+                "Contributor photograph";
+
+        });
+
+    });
+
+
+    /* =====================================================
+       ESCAPE KEY CLOSES MOBILE MENU
+    ===================================================== */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+            navLinks.classList.remove("active");
+        }
 
     });
 
